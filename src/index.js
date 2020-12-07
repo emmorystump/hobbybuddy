@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAX0j2GWTGx0a5YEv7vvWJ6HW37mKYhby4",
