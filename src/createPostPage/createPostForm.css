@@ -16,7 +16,7 @@
     margin: auto;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 25px;
     font-size: larger;
 }
 
@@ -29,13 +29,16 @@
     border: 2px solid black;
 }
 
+#inputTextarea {
+    height: 150px;
+}
+
 .inputWrapper {
     margin-top: 30px;
 }
 
 .inputArea {
-    
-    width: 40%;
+    width: 30%;
     margin: auto;
 }
 
@@ -51,14 +54,14 @@
 #closeButton {
     background-color: grey;
     margin-left: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
     padding-left: 30px;
     padding-right: 30px;
 }
 
 #submitButton {
     border: 0px;
-    background-color: lightskyblue;
+    background-color: #4C87F8;
     margin: auto;
     margin-top: 30px;
     width: 80%;

@@ -113,7 +113,7 @@ class CreatePostForm extends Component {
                     </div>
                     <div className="inputWrapper">
                         Description:
-                        <textarea className = "input" type = "text" value = {description} onChange = {(event) => this.setState({description: event.target.value })}></textarea>
+                        <textarea id = "inputTextarea" className = "input" type = "text" value = {description} onChange = {(event) => this.setState({description: event.target.value })}></textarea>
                     </div>
                     <button className="button" id="submitButton" onClick={this.submitForm}>
                         Submit
