@@ -1,22 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
+import Homepage from './homepage/homepage';
+import CreatePostForm from './createPostPage/createPostForm';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 function App() {
-  // Test code to test firebase connections
-  // let database = firebase.database();
-  // var hobby0ContentRef = firebase.database().ref('Hobbies/0');
-  // hobby0ContentRef.on('value', (snapshot) =>{
-  //   const data = snapshot.val();
-  //   console.log(data);
-  // });
   return (
-    <div className="App">
-      
-      
-    </div>
+      <Router>
+        <Switch>
+          
+          <Route exact path="/createpost">
+            <CreatePostForm />
+          </Route>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+
+        </Switch>
+      </Router>
   );
 }
 

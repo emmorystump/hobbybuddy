@@ -1,0 +1,70 @@
+.content {
+    font-family: sans-serif;
+}
+.toprow {
+    width: 100%;
+    margin-top: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: larger;
+    font-family: cursive;
+    border-bottom: 2px solid black;
+}
+
+.newPostLabel {
+    font-weight: bold;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    font-size: larger;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.inputWrapper {
+    margin-top: 30px;
+}
+
+.inputArea {
+    
+    width: 40%;
+    margin: auto;
+}
+
+.button {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+}
+
+#closeButton {
+    background-color: grey;
+    margin-left: 20px;
+    margin-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+#submitButton {
+    border: 0px;
+    background-color: lightskyblue;
+    margin: auto;
+    margin-top: 30px;
+    width: 80%;
+}
+
+#submitButton:hover {
+    cursor: pointer;
+}
+
