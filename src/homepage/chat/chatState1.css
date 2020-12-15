@@ -1,0 +1,8 @@
+.chatlogo {
+    height: 30px;
+    width: auto;
+}
+
+.chatlogo:hover {
+    cursor: pointer;
+}

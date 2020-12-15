@@ -3,7 +3,7 @@ import './createPostForm.css'
 import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class CreatePostForm extends Component {
     constructor(props) {
@@ -20,7 +20,6 @@ class CreatePostForm extends Component {
         var self = this;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                console.log(user.uid);
                 let userid = user.uid;
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
@@ -47,16 +46,11 @@ class CreatePostForm extends Component {
     submitForm() {
         var self = this;
         const {title, selectedHobby, description} = this.state;
-        console.log(title)
-        console.log(selectedHobby)
-        console.log(description)
         if (title.trim() === '' 
             || selectedHobby === ''
             || description.trim() === '') {
                 alert("Please enter the required information");
         } else {
-            var self = this;
-
             let database = firebase.database();
             var postCountRef = database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/PostCount");
             let newPostCount = 0;
@@ -82,9 +76,6 @@ class CreatePostForm extends Component {
                       }
                   });
             });
-            
-
-
         }
     }
 
@@ -94,7 +85,7 @@ class CreatePostForm extends Component {
             <option key={hobby} value={hobby}>{hobby}</option>);
         return (
             <div className = "content">
-                <div className="toprow">
+                <div className="formToprow">
                     Hobby Buddy
                 </div>   
                 <div className="newPostLabel">
