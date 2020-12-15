@@ -18,6 +18,8 @@ class ChatWrapper extends Component {
             userid: '',
         };
         this.StateChange = this.StateChange.bind(this);
+        this.SearchUser = this.SearchUser.bind(this);
+        this.StateChangeWithDataRefresh = this.StateChangeWithDataRefresh.bind(this);
     }
 
     componentDidMount() {
@@ -26,9 +28,62 @@ class ChatWrapper extends Component {
             if (user) {
                 let userid = user.uid;
                 var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
-                userChatlogsRef.on('value', (snapshot) =>{
+                userChatlogsRef.once('value', (snapshot) =>{
                     const chatlogObjects = snapshot.val();
                     self.setState({
+                        chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
+                        userid: userid
+                    });
+                });
+            } else {
+              alert("Sign in first");
+            }
+        });
+    }
+
+    SearchUser(query) {
+        var self = this;
+        let filteredUsersRef = firebase.database().ref('Users/').orderByChild('Username').equalTo(query);
+        filteredUsersRef.once('value', (snapshot) =>{
+            const filteredUsers = snapshot.val();
+            if (filteredUsers === null) {
+                alert("There isn't a user with this name.");
+            } else {
+                let target = filteredUsers[Object.keys(filteredUsers)[0]].Username;
+                let targetid = Object.keys(filteredUsers)[0];
+                let newChat = {
+                    Target: target,
+                    TargetId: targetid,
+                }
+                let database = firebase.database();
+                var messagesRef = database.ref('Users/'+self.state.userid+"/Chatlogs/"+targetid);
+                messagesRef.set(newChat, (error) => {
+                    if (error) {
+                        alert("Due to server issues, search failed! Please try again later.");
+                    } else {
+                        self.setState(prevState => ({
+                            curChatState: 3,
+                            chatlogs: [...prevState.chatlogs, newChat],
+                            curTarget: target,
+                            curTargetIndex: prevState.chatlogs.length,
+                        }));
+                    }
+                });
+            }
+            
+        });
+    }
+
+    StateChangeWithDataRefresh(state) {
+        var self = this;
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                let userid = user.uid;
+                var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
+                userChatlogsRef.once('value', (snapshot) =>{
+                    const chatlogObjects = snapshot.val();
+                    self.setState({
+                        curChatState: state,
                         chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
                         userid: userid
                     });
@@ -58,11 +113,16 @@ class ChatWrapper extends Component {
             chatState = <ChatState1 stateChange={this.StateChange} />;
         } else if (curChatState === 2) {
             let chatList = chatlogs.map(chatlog => chatlog.Target);
-            chatState = <ChatState2 stateChange={this.StateChange} chatList={chatList}/>;
+            chatState = <ChatState2
+                            stateChange={this.StateChange}
+                            chatList={chatList}
+                            searchUser={this.SearchUser} />;
         } else {
             let messages = chatlogs[curTargetIndex].Messages;
+            if (messages === undefined) messages = [];
+            console.log(messages);
             chatState = <ChatState3
-                            stateChange={this.StateChange}
+                            stateChange={this.StateChangeWithDataRefresh}
                             target={curTarget}
                             messages={messages}
                             userid={userid}

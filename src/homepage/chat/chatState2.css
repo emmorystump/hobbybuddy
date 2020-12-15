@@ -54,3 +54,28 @@
 .pushdown:hover {
     cursor: pointer;
 }
+
+.searchBox {
+    border: 2px solid black;
+    width: fit-content;
+    margin: auto;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.searchInput {
+    border: none;
+    width: 100px;
+    margin-left: 5px;
+}
+
+.searchIcon {
+    height: 20px;
+    width: auto;
+    position: relative;
+    top: 5px;
+}
+
+.searchIcon:hover {
+    cursor: pointer;
+}

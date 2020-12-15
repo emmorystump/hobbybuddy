@@ -49,13 +49,15 @@ class ChatState3 extends Component {
         return (
         <div className="container">
             <div className="targetTopRow">
-                <img className="back" src={back} onClick={() => stateChange(2, -1)} alt="Back" />
+                <img className="back" src={back} onClick={() => stateChange(2)} alt="Back" />
                 Chat
-                <img className="pushdown" src={pushdown} onClick={() => stateChange(1, -1)} alt="Back" />
+                <img className="pushdown" src={pushdown} onClick={() => stateChange(1)} alt="Back" />
             </div>
             <div className="messageBox">
                 <div className="nameLabel">{target}</div>
-                {messageElements}
+                <div className="messageContainer">
+                    {messageElements}
+                </div>
                 <div className="sendBox">
                     <input className="sendInput" type="text" placeholder="send message"
                         value={messageDraft} onChange={(event) => this.setState({messageDraft: event.target.value})}/>

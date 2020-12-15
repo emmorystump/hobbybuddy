@@ -78,3 +78,7 @@
 .sendButton:hover {
     cursor: pointer;
 }
+
+.messageContainer {
+    min-height: 80px;
+}

@@ -80,6 +80,7 @@ class CreatePostForm extends Component {
     }
 
     render() {
+        // eslint-disable-next-line no-unused-vars
         const {title, selectedHobby, description, hobbyOptions} = this.state;
         const hobbyOptionElements = hobbyOptions.map(hobby => 
             <option key={hobby} value={hobby}>{hobby}</option>);
