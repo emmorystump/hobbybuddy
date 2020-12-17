@@ -86,9 +86,9 @@ class CreatePostForm extends Component {
             <option key={hobby} value={hobby}>{hobby}</option>);
         return (
             <div className = "content">
-                <div className="formToprow">
+                {/* <div className="formToprow">
                     Hobby Buddy
-                </div>   
+                </div>    */}
                 <div className="newPostLabel">
                     Add New Post
                 </div>
