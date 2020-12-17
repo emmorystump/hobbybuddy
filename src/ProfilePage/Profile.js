@@ -4,6 +4,9 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/auth';
 
+import './profile.css';
+import Chat from '../homepage/chat/chatWrapper';
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -37,12 +40,25 @@ class Profile extends Component {
     render() {
         return (
             <div>
-                {this.state.username}
-                {this.state.hobbies.map((product, index) =>
-                    <div key={index}>
-                        <h1>{product}</h1>
+
+                <div className="profile-banner">
+                    <div className="user-image">
+                        
                     </div>
-                )}
+
+                    <div className="title" >
+                        <h1>{this.state.username}</h1>
+                        <p>Some description here that is now static.</p>
+                    </div>
+                </div>
+                <Chat />
+                <div className="hobbies-container">
+                    {this.state.hobbies.map((product, index) =>
+                        <div className="hobby-box" key={index}>
+                            <h1>{product}</h1>
+                        </div>
+                    )}
+                </div>
             </div>   
         );
     }
