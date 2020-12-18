@@ -5,6 +5,13 @@ import firebase from "firebase/app";
 import 'firebase/auth';
 import './homepage.css';
 import { withRouter } from 'react-router-dom';
+import UserHobbies from './usersHobbies/usersHobbies'
+import SuggestedHobbies from './suggestedHobbies/suggestedHobbies'
+import 'firebase/auth';
+import './homepage.css';
+import {Row} from 'react-bootstrap'
+import {Col} from 'react-bootstrap'
+
 
 class Homepage extends Component {
     constructor(props) {
@@ -46,7 +53,7 @@ class Homepage extends Component {
         //     console.log("heyyy")
         //     console.log(this.props.postState)
         //     postState = this.props.postState;
-        //     console.log(postState);
+        // console.log(this.props.postState);
         // }
         return (
             <div>
@@ -55,6 +62,19 @@ class Homepage extends Component {
                 <button onClick={this.logout}>
                     logout
                 </button>
+                <Row>
+                    <Col xs={2}>
+                        <UserHobbies />
+                        <ChatWrapper />
+                    </Col>
+                    <Col xs={8}>
+                        <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
+                    </Col>
+                    <Col>
+                        <SuggestedHobbies />
+                    </Col>
+
+                </Row>
             </div>   
         );
     }

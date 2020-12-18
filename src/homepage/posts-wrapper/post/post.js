@@ -9,47 +9,79 @@ class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
-    
+            commentToAdd: '',
+            userid: ''
         };
     }
 
     componentDidMount() {
         var self = this;
-        
-        // firebase.auth().onAuthStateChanged(function(user) {
-            // if (user) {
-                // let userid = user.uid;
-                // var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
-                // userChatlogsRef.once('value', (snapshot) =>{
-                //     const chatlogObjects = snapshot.val();
-                //     self.setState({
-                //         chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
-                //         userid: userid
-                //     });
-                // });
-                
-                //get posts information for current hobby (this.props.selectedHobby)
-                //store using self.setState?
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                self.setState({
+                    userid: user.uid
+                });
+            } else {
+              alert("Sign in first");
+            }
+        });
+    }
 
-            // } else {
-            //   alert("Sign in first");
-            // }
-        // });
+    addComment() {
+        //like the post
+        var userId = this.state.userid;
+        //add comment to post 
+        //clear state "commentToAdd"
+        //reload render
     }
     
     render() {
-
-        var id = this.props.postInfo[2];
-        var description = this.props.postInfo[0];
+        var post = this.props.postInfo;
+        var description = post.Description;
+        var id = post.PostId;
+        var author = post.Author;
+        var commentRendered;
+        if (post.Comments) {
+            var comments = post.Comments;
+            commentRendered = comments.map((comment, index) => {
+                var author = comment.Author;
+                var content = comment.Content;
+                return (
+                    <div className="singleComment">
+                        <div className="leftAlign">
+                            {content}
+                        </div>
+                        <div className="rightAlign">
+                            <text className="postAuthor">{author}</text>
+                        </div>
+                    </div>); 
+            })
+        }
         return (
             <div>
                 <div key={id} className="postbox">
-                    <div className="postDescription">{description}</div>
+                    <div>
+                        <text className="postAuthor">{author}</text>
+                        {description}
+                    </div>
+                    <div className="rightAlign">
+                        <button onClick={() => this.props.likePost(id)}>
+                            Like
+                        </button>
+                    </div>
                 </div>
                 <div className="commentsList">
+                    {commentRendered}
                 </div>
                 <div className="addCommentBox">
-
+                    <div>
+                        Add Comment
+                        <textarea className = "input" type = "text" onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
+                    </div>
+                    <div className="rightAlign">
+                        <button className="commentButton" onClick={this.addComment}>Submit</button>
+                    </div>
+                    
                 </div>
             </div>   
         );

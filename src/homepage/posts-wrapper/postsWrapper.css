@@ -1,6 +1,7 @@
 .postsWrapper {
-    width: 50%;
-    margin: 1rem auto;
+    width: 80%;
+    /* margin: 1rem auto; */
+    margin: auto;
     border: 1px solid black;
 }
 
@@ -12,6 +13,9 @@
 }
 .rightAlign {
     text-align: right;
+}
+.leftAlign {
+    text-align: left;
 }
 .createPostButton {    
     display: inline-block;
@@ -40,4 +44,27 @@
     background-color: lightgrey;
     padding-left: 30px;
     padding-right: 30px;
+}
+
+.postAuthor {
+    font-weight: 600;
+    margin-right: .5rem;
+}
+
+.singleComment {
+    border: 1px solid black;
+    width: 70%;
+    padding: .5rem;
+    margin: 0 .5rem .5rem 28.5%;
+}
+.addCommentBox {
+    padding: .5rem;
+    margin: .5rem;
+}
+.commentButton {
+    color: white;
+    padding: 5px;
+    width: fit-content;
+    background-color: blue;
+    margin: .25rem 0; 
 }

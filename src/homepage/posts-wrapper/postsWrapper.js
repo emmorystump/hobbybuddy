@@ -15,25 +15,20 @@ class PostsWrapper extends Component {
             showPostDetail: -1
         };
         this.stateChange = this.stateChange.bind(this);
+        this.likePost = this.likePost.bind(this);
     }
 
     componentDidMount() {
         var self = this;
-        // if (this.props.postState) {
-        //     console.log("heyyyyy")
-        //     this.stateChange(this.props.postState);
-        // }
-        // else {
-        //     this.stateChange(-1);
-        // }
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 let userid = user.uid;
-                var hobbyRef = firebase.database().ref('Hobbies/Biking/Posts');
+                var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
                 hobbyRef.once('value', (snapshot) =>{
                     const postObjects = snapshot.val();
                     console.log(postObjects);
-                    const arr = Object.keys(postObjects).map(uid => Object.values(postObjects[uid]));
+                    // const arr = Object.keys(postObjects).map(uid => Object.values(postObjects[uid]));
+                    const arr = Object.values(postObjects);
                     console.log(arr);
                     self.setState({
                         postsList: arr,
@@ -51,31 +46,40 @@ class PostsWrapper extends Component {
             showPostDetail: id
         }));
     }
+
+    likePost(postId) {
+        //like the post
+        var userId = this.state.userid;
+    }
     
     render() {
         let posts;
         if (this.state.showPostDetail === -1) {
             posts = this.state.postsList.map((post, index) => {
-                var description = post[0];
-                var id = post[2];
-                return (
-                <div key={id} className="postbox">
-                    <div className="postDescription">{description}</div>
-                    {/* <Link to="/postdetail"> */}
-                    <div className="rightAlign">
-                        <button>
-                            Like
-                        </button>
-                        <button onClick={() => this.stateChange(id)}>
-                            View Post/Comment
-                        </button>
-                    </div>
-                    {/* </Link> */}
-                </div>);
+                var description = post.Description;
+                var id = post.PostId;
+                var author = post.Author;
+                if (id) {
+                    return (
+                        <div key={id} className="postbox">
+                            <div>
+                                <text className="postAuthor">{author}</text>
+                                {description}
+                            </div>
+                            <div className="rightAlign">
+                                <button onClick={() => this.likePost(id)}>
+                                    Like
+                                </button>
+                                <button onClick={() => this.stateChange(index)}>
+                                    View Post/Comment
+                                </button>
+                            </div>
+                        </div>);
+                }
             })  
         }
         else {
-            posts = <Post postInfo={this.state.postsList[this.state.showPostDetail]} />
+            posts = <Post likePost={this.likePost} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
         }
         return (
             <div className="postsWrapper">
@@ -92,7 +96,7 @@ class PostsWrapper extends Component {
                         </div>
                     }
                     {this.state.showPostDetail !== -1 &&
-                        <div className="rightAlign">    
+                        <div className="leftAlign">    
                             <button className="backButton" onClick={() => this.stateChange(-1)}>Back</button>
                         </div>
                     }
