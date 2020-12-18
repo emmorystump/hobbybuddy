@@ -57,8 +57,8 @@ class Homepage extends Component {
         // }
         return (
             <div>
-                <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
-                <ChatWrapper />
+                {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
+                <ChatWrapper /> */}
                 <button onClick={this.logout}>
                     logout
                 </button>
