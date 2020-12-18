@@ -1,5 +1,5 @@
 import React from 'react';
-import './signupWrapper.css';
+import './signupState2.css';
 
 const SignupState2 = ({
     availableHobbies,
@@ -32,9 +32,12 @@ const SignupState2 = ({
     });
     return (
     <div>
-        <button onClick={() => stateChange(1)}>←</button>
-        {availHobbyElements}
-        <button onClick={() => finishSignup()}>Get Started!</button>
+        <button className="backButton" onClick={() => stateChange(1)}>Back</button>
+        <div className="selectHobbySection">
+            <div className="selectHobbyLabel">Select your hobbies!</div>
+            {availHobbyElements}
+        </div>
+        <button className="nextButton" onClick={() => finishSignup()}>Get Started!</button>
     </div>);
 };
 
