@@ -30,10 +30,12 @@ class ChatWrapper extends Component {
                 var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
                 userChatlogsRef.once('value', (snapshot) =>{
                     const chatlogObjects = snapshot.val();
-                    self.setState({
-                        chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
-                        userid: userid
-                    });
+                    if (chatlogObjects) {
+                        self.setState({
+                            chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
+                            userid: userid
+                        });
+                    }
                 });
             } else {
               alert("Sign in first");
@@ -82,11 +84,13 @@ class ChatWrapper extends Component {
                 var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
                 userChatlogsRef.once('value', (snapshot) =>{
                     const chatlogObjects = snapshot.val();
-                    self.setState({
-                        curChatState: state,
-                        chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
-                        userid: userid
-                    });
+                    if (chatlogObjects) {
+                        self.setState({
+                            curChatState: state,
+                            chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
+                            userid: userid
+                        });
+                    }
                 });
             } else {
               alert("Sign in first");

@@ -11,6 +11,7 @@ import {
   Route
 } from "react-router-dom";
 import { Component } from 'react';
+import SignupWrapper from './signup/signupWrapper';
 
 class App extends Component {
   constructor(props) {
@@ -20,21 +21,23 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    firebase.auth().signInWithEmailAndPassword('tomriddle@nowhere.com', 'eightone')
-    .then((user) => {
-        console.log("succeed");
-        console.log(user.user.email);
-        this.setState({
-          email: user.user.email,
-          uid: user.user.uid
-        })
-    })
-    .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode+";"+errorMessage)
-    });
+  componentWillMount() {
+    // self.props.history.push('/');
+    
+    // firebase.auth().signInWithEmailAndPassword('tomriddle@nowhere.com', 'eightone')
+    // .then((user) => {
+    //     console.log("succeed");
+    //     console.log(user.user.email);
+    //     this.setState({
+    //       email: user.email,
+    //       uid: user.user.uid
+    //     })
+    // })
+    // .catch((error) => {
+    //     var errorCode = error.code;
+    //     var errorMessage = error.message;
+    //     console.log(errorCode+";"+errorMessage)
+    // });
   }
 
   render() {
@@ -46,6 +49,9 @@ class App extends Component {
             
             <Route exact path="/createpost">
               <CreatePostForm />
+            </Route>
+            <Route exact path="/signup">
+              <SignupWrapper />
             </Route>
             <Route exact path="/">
               <Homepage />

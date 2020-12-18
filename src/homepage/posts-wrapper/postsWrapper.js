@@ -41,7 +41,7 @@ class PostsWrapper extends Component {
                     });
                 });   
             } else {
-              alert("Sign in first");
+            //   alert("Sign in first");
             }
         });
     }
