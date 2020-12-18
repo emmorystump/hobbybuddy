@@ -1,0 +1,8 @@
+.hobby-sidebar {
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+}
+
+.hobby-option-button {
+    margin: 10px;
+}

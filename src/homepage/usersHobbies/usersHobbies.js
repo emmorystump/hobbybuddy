@@ -4,6 +4,9 @@ import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
 import { Link, Redirect, withRouter } from 'react-router-dom';
+import './usersHobbies.css'
+import {Row} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 class UserHobbies extends Component {
@@ -41,7 +44,7 @@ class UserHobbies extends Component {
     render() {
         const {selectedHobby, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Link className = "hobby-option-button" to="/" id={hobby}>{hobby}</Link>);
+            <Row><Link className = "hobby-option-button" to="/" id={hobby}>{hobby}</Link></Row>);
         
         return (
             <div className = "hobby-sidebar">
