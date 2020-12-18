@@ -113,6 +113,7 @@ class ChatWrapper extends Component {
             chatState = <ChatState1 stateChange={this.StateChange} />;
         } else if (curChatState === 2) {
             let chatList = chatlogs.map(chatlog => chatlog.Target);
+            console.log(chatlogs);
             chatState = <ChatState2
                             stateChange={this.StateChange}
                             chatList={chatList}
