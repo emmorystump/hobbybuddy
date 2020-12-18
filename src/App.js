@@ -50,6 +50,9 @@ class App extends Component {
             <Route exact path="/">
               <Homepage />
             </Route>
+            {/* <Route exact path="/postdetail">
+              <Homepage />
+            </Route> */}
           </Switch>
         </Router>
     );

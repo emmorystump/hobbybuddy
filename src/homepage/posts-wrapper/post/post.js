@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import { Link } from 'react-router-dom';
 import 'firebase/auth';
 import 'firebase/database';
-//import './postsWrapper.css';
+import '../postsWrapper.css';
 
 class Post extends Component {
     constructor(props) {
@@ -38,11 +38,18 @@ class Post extends Component {
     }
     
     render() {
-        
+
+        var id = this.props.postInfo[2];
+        var description = this.props.postInfo[0];
         return (
             <div>
-                <div>
-                    <button onClick={() => this.props.stateChange(-1)}>Back</button>
+                <div key={id} className="postbox">
+                    <div className="postDescription">{description}</div>
+                </div>
+                <div className="commentsList">
+                </div>
+                <div className="addCommentBox">
+
                 </div>
             </div>   
         );

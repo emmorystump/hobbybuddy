@@ -19,6 +19,13 @@ class PostsWrapper extends Component {
 
     componentDidMount() {
         var self = this;
+        // if (this.props.postState) {
+        //     console.log("heyyyyy")
+        //     this.stateChange(this.props.postState);
+        // }
+        // else {
+        //     this.stateChange(-1);
+        // }
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 let userid = user.uid;
@@ -54,25 +61,41 @@ class PostsWrapper extends Component {
                 return (
                 <div key={id} className="postbox">
                     <div className="postDescription">{description}</div>
-                    <button onClick={() => this.stateChange(id)}>
-                        View Post/Comment
-                    </button>
+                    {/* <Link to="/postdetail"> */}
+                    <div className="rightAlign">
+                        <button>
+                            Like
+                        </button>
+                        <button onClick={() => this.stateChange(id)}>
+                            View Post/Comment
+                        </button>
+                    </div>
+                    {/* </Link> */}
                 </div>);
-            })
+            })  
         }
         else {
-            posts = <Post stateChange={this.stateChange} postInfo={this.state.postsList[this.state.showPostDetail]} />
+            posts = <Post postInfo={this.state.postsList[this.state.showPostDetail]} />
         }
         return (
-            <div>
+            <div className="postsWrapper">
                 <div id="wrapperHeader">
-                    <strong>{this.props.selectedHobby}</strong><br></br>
-                    <i>Recommended for you:</i>
-                </div>
-                <div>
-                    <Link to = "/createpost" className="creatPostButton">
-                        Create Post
-                    </Link>
+                    <div className="centerText">
+                        <strong>{this.props.selectedHobby}</strong><br></br>
+                        <i>Recommended for you:</i>
+                    </div>
+                    {this.state.showPostDetail === -1 && 
+                        <div className="rightAlign">
+                            <Link to = "/createpost">
+                                <button className="createPostButton">Create Post</button>
+                            </Link>
+                        </div>
+                    }
+                    {this.state.showPostDetail !== -1 &&
+                        <div className="rightAlign">    
+                            <button className="backButton" onClick={() => this.stateChange(-1)}>Back</button>
+                        </div>
+                    }
                 </div>
                 <div class="mainPostsBox">
                     {posts}

@@ -14,9 +14,16 @@ class Homepage extends Component {
 
     
     render() {
+        var postState;
+        // if (this.props.postState) {
+        //     console.log("heyyy")
+        //     console.log(this.props.postState)
+        //     postState = this.props.postState;
+        //     console.log(postState);
+        // }
         return (
             <div>
-                <PostsWrapper selectedHobby={this.state.selectedHobby}/>
+                <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper />
             </div>   
         );

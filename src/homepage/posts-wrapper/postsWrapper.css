@@ -1,0 +1,43 @@
+.postsWrapper {
+    width: 50%;
+    margin: 1rem auto;
+    border: 1px solid black;
+}
+
+#wrapperHeader {
+    padding: 1rem;
+}
+.centerText {
+    text-align: center;
+}
+.rightAlign {
+    text-align: right;
+}
+.createPostButton {    
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    width: fit-content;
+    background-color: lightgrey;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.postbox {
+    width: auto;
+    padding: 1rem;
+    margin: .5rem;
+    background-color: lightgrey;
+}
+
+.backButton {    
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    width: fit-content;
+    background-color: lightgrey;
+    padding-left: 30px;
+    padding-right: 30px;
+}
