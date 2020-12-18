@@ -9,6 +9,7 @@ class CreatePostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: '',
             title: '',
             selectedHobby: '',
             description: '',
@@ -26,6 +27,7 @@ class CreatePostForm extends Component {
                     const hobbies = snapshot.val();
                     if (hobbies.length) {
                         self.setState({
+                            username: user.displayName,
                             selectedHobby: hobbies[0],
                             hobbyOptions: hobbies,
                         });
@@ -38,9 +40,10 @@ class CreatePostForm extends Component {
 
                 });
             } else {
-              alert("Sign in first");
+                alert("Sign in first");
             }
         });
+
     }
 
     submitForm() {
@@ -57,6 +60,7 @@ class CreatePostForm extends Component {
             postCountRef.once('value', (snapshot) =>{
                 newPostCount = snapshot.val()+1;
                 database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+newPostCount).set({
+                    Author: this.state.username,
                     PostId: newPostCount,
                     Title: title,
                     Hobby: selectedHobby,
@@ -86,9 +90,6 @@ class CreatePostForm extends Component {
             <option key={hobby} value={hobby}>{hobby}</option>);
         return (
             <div className = "content">
-                {/* <div className="formToprow">
-                    Hobby Buddy
-                </div>    */}
                 <div className="newPostLabel">
                     Add New Post
                 </div>
