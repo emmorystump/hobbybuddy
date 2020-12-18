@@ -9,8 +9,9 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 class UserHobbies extends Component {
     constructor(props) {
         super(props);
+        console.log("in here!");
         this.state = {
-            selectedHobby: 'Biking',
+            selectedHobby: '',
             hobbyOptions: []
         }
     }
@@ -49,3 +50,5 @@ class UserHobbies extends Component {
         );
     }
 }
+
+export default UserHobbies;

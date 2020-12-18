@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChatWrapper from './chat/chatWrapper';
 import PostsWrapper from './posts-wrapper/postsWrapper'
+import UserHobbies from './usersHobbies/usersHobbies'
 import 'firebase/auth';
 import './homepage.css';
 
@@ -23,6 +24,7 @@ class Homepage extends Component {
         // }
         return (
             <div>
+                <UserHobbies />
                 <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper />
             </div>   
