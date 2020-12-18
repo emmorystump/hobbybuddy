@@ -27,3 +27,28 @@
 .selectedHobby:hover {
     cursor: pointer;
 }
+
+.backButton {
+    display: block;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    background-color: lightskyblue;
+    border: none;
+    margin-left: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font: mediu;
+}
+
+.selectHobbySection {
+    text-align: center;
+}
+
+.selectHobbyLabel {
+    width: fit-content;
+    padding: 10px;
+    font-size: larger;
+    margin: auto;
+}

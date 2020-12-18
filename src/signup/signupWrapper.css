@@ -1,3 +1,13 @@
 .signupWrapper {
-    
+    background-color: lightgray;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-bottom: 20px;
+}
+
+.signupLabel {
+    width: fit-content;
+    margin: auto;
+    padding: 10px;
+    color: lightseagreen;
+    font-size: larger;
 }
