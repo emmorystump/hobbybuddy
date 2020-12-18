@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './usersHobbies.css'
+// import './usersHobbies.css'
 import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import './usersHobbies.css'
+// import './suggestedHobbies.css'
 import {Row} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -26,6 +26,7 @@ class SuggestedHobbies extends Component {
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
+                    console.log(hobbies)
                     if (hobbies.length) {
                         self.setState({
                             hobbyOptions: hobbies,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ChatWrapper from './chat/chatWrapper';
 import PostsWrapper from './posts-wrapper/postsWrapper'
 import UserHobbies from './usersHobbies/usersHobbies'
+import SuggestedHobbies from './suggestedHobbies/suggestedHobbies'
 import 'firebase/auth';
 import './homepage.css';
 import {Row} from 'react-bootstrap'
@@ -32,8 +33,11 @@ class Homepage extends Component {
                         <UserHobbies />
                         <ChatWrapper />
                     </Col>
-                    <Col>
+                    <Col xs={8}>
                         <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
+                    </Col>
+                    <Col>
+                        <SuggestedHobbies />
                     </Col>
 
                 </Row>
