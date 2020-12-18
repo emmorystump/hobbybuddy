@@ -2,6 +2,7 @@ import './App.css';
 import Homepage from './homepage/homepage';
 import Profile from './ProfilePage/Profile';
 import CreatePostForm from './createPostPage/createPostForm';
+import Post from './homepage/posts-wrapper/post/post'
 import Navbar from './components/Navbar';
 import firebase from "firebase/app";
 import {
