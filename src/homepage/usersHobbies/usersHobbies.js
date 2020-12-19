@@ -35,9 +35,7 @@ class UserHobbies extends Component {
                         });
                     } 
                 });
-            } else {
-              alert("Sign in first");
-            }
+            } 
         });
     }
 

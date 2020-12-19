@@ -33,8 +33,6 @@ class SuggestedHobbies extends Component {
                         });
                     } 
                 });
-            } else {
-              alert("Sign in first");
             }
 
             if (user) {
@@ -49,8 +47,8 @@ class SuggestedHobbies extends Component {
                         var hobbyInfo = hobbies[key];
                         var related = hobbyInfo["Related Hobbies"];
                         console.log(related)
-                        for(var key in related) {
-                            suggested.push(related[key])
+                        for(var j in related) {
+                            suggested.push(related[j])
                         }
                     }
 
