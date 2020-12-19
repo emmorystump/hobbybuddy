@@ -39,6 +39,7 @@ class Homepage extends Component {
         };
         this.switchHobby = this.switchHobby.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
     
     togglePopup(text, adding) {
@@ -115,7 +116,6 @@ class Homepage extends Component {
                             }
                         <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
                         <UserHobbies switchHobby={this.switchHobby}/>
-                        <ChatWrapper userid={this.state.uid}/>
                     </Col>
                     <Col xs={8}>
                         <PostsWrapper selectedHobby={this.state.selectedHobby}/>
@@ -125,6 +125,7 @@ class Homepage extends Component {
                     </Col>
 
                 </Row>
+                <ChatWrapper userid={this.state.uid}/>
             </div>   
         );
     }
