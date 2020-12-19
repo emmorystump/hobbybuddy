@@ -13,8 +13,8 @@ const Navbar = ({email}) => {
                     <Link to="/"> Hobby Buddy </Link>
                 </div>
 
-                <div className="navbar-right"></div>
-                    <Link to="/login"> Sign Out </Link>
+                <div className="navbar-right"><Link to="/login"> Sign Out </Link></div>
+                    
             </nav>
         </div>
     )
