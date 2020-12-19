@@ -26,11 +26,11 @@ class ChatState2 extends Component {
         <div className="container">
             <div className="chatTopRow">
                 Chat
-                <img className="pushdown" src={pushdown} onClick={() => stateChange(1, -1)} alt="Back" />
+                <img className="chatPushdown" src={pushdown} onClick={() => stateChange(1, -1)} alt="Back" />
             </div>
-            <div className="searchBox">
-                <input className="searchInput" type="text" placeholder="Search People" value={searchText} onChange={(event) => this.setState({searchText: event.target.value})} />
-                <img className="searchIcon" src={searchIcon} onClick={() => searchUser(this.state.searchText)} alt="Search" />
+            <div className="chatSearchBox">
+                <input className="chatSearchInput" type="text" placeholder="Search People" value={searchText} onChange={(event) => this.setState({searchText: event.target.value})} />
+                <img className="chatSearchIcon" src={searchIcon} onClick={() => searchUser(this.state.searchText)} alt="Search" />
             </div>
             {chats}
         </div>);
