@@ -39,6 +39,7 @@ class Homepage extends Component {
         };
         this.switchHobby = this.switchHobby.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
     
     togglePopup(text, adding) {
