@@ -16,6 +16,8 @@ class SuggestedHobbies extends Component {
         this.state = {
             addedHobbies: [],
             hobbyOptions: [],
+            switchHobby: this.props.switchHobby,
+            uid: ''
         }
     }
 
@@ -32,6 +34,7 @@ class SuggestedHobbies extends Component {
                         if (hobbies.length) {
                             self.setState({
                                 addedHobbies: hobbies,
+                                uid: userid
                             });
                         } 
                     }
@@ -57,6 +60,8 @@ class SuggestedHobbies extends Component {
 
                     self.setState({
                         hobbyOptions: suggested,
+                        uid: user.id
+
                     });
                     
                 });
@@ -64,10 +69,44 @@ class SuggestedHobbies extends Component {
         });
     }
 
+    addHobby(hobby) {
+       var newHobbyList = this.state.addedHobbies;
+       console.log(newHobbyList);
+
+       newHobbyList.push(hobby);
+       console.log(newHobbyList);
+        
+       this.setState({
+            addedHobbies: newHobbyList
+        });
+
+        var newKey = newHobbyList.length;
+        console.log(newKey);
+        // add this hobby to the database
+
+        let database = firebase.database();
+        var userHobbies = database.ref('Users/'+this.state.uid+"/Hobbies");
+        console.log(userHobbies)
+        var newUserHobby = userHobbies.push();
+        console.log(newUserHobby);
+        // newUserHobby.set({hobby})
+        userHobbies.on('value', (snapshot) =>{
+            database.ref('Users/'+this.state.uid+"/Hobbies").set({
+                newKey: hobby
+                }, (error) => {
+                    console.log("error");
+
+            });
+        });
+
+        // call switch hobby
+        this.state.switchHobby(hobby)
+    }
+
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row key={hobby}><Button variant="light" className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
+            <Row key={hobby}><Button variant="light" onClick={() => this.addHobby(hobby)} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
