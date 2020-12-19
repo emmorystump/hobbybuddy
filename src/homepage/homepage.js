@@ -10,14 +10,17 @@ import SuggestedHobbies from './suggestedHobbies/suggestedHobbies'
 import 'firebase/auth';
 import './homepage.css';
 import {Row} from 'react-bootstrap'
-import {Col} from 'react-bootstrap'
+import {Col} from 'react-bootstrap';
+import Navbar from '../components/Navbar';
 
 
 class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedHobby: 'Biking'
+            selectedHobby: 'Biking',
+            email: '',
+            uid: ''
         };
     }
 
@@ -57,6 +60,7 @@ class Homepage extends Component {
         // }
         return (
             <div>
+                <Navbar email={this.state.email} />
                 <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper />
                 <button onClick={this.logout}>
