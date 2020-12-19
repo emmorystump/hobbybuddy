@@ -4,6 +4,8 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/auth';
 
+import hobee from './HoBee.png';
+
 import './login.css';
 
 class Login extends Component {
@@ -16,48 +18,44 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
-        let self = this;
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                let uid = user.uid;
-                var userInfo = firebase.database().ref('Users/'+uid);
-                userInfo.on('value', (snapshot) =>{
-                    let user =  snapshot.val();
-                    self.setState({
-                        location: user.Location,
-                        username: user.Username,
-                        hobbies: user.Hobbies
-                    })
-                });
-            } else {
-              alert("Sign in first");
-            }
-        });
-    }
+    state = {
+    isActive: false
+    };
+
+    handleShow = () => {
+    this.setState({isActive: true});
+    };
+
+    handleHide = () => {
+    this.setState({isActive: false});
+    };
     
     render() {
         return (
             <div>
-
-                <div className="profile-banner">
-                    <div className="user-image">
-                        
+                {/* {this.state.isActive && <h1>Hello react</h1>}
+                {this.state.isActive ?(
+                    <HideButton onClick={this.handleHide}/>
+                ) : (
+                    <ShowButton onClick={this.handleShow}/>
+                )} */}
+                <div className="main">
+                    <img src={hobee} alt="HoBee" id="hobee"></img>
+                    <div className="title"><h1>Hobby Buddy</h1></div>
+                    <div id="loginMain">
+                        <div class="butt"><button type="button" class="btn btn-info btn-lg">Log In</button></div>
+                        <div class="butt"><button type="submit" class="btn btn-secondary btn-lg">Sign Up</button></div>
                     </div>
-
-                    <div className="title" >
-                        <h1>{this.state.username}</h1>
-                        <p>Some description here that is now static.</p>
+                    <div className="Credentials">
+                        <form method="post">
+                            <input type="text" name="usrname" placeholder="Username" required="required" />
+                            <input type="password" name="pwd" placeholder="Password" required="required" />
+                            <button type="button" class="btn btn-secondary">Back</button>
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </form>
                     </div>
                 </div>
-                {/* <div className="hobbies-container">
-                    {this.state.hobbies.map((product, index) =>
-                        <div className="hobby-box" key={index}>
-                            <h1>{product}</h1>
-                        </div>
-                    )}
-                </div> */}
-            </div>   
+            </div>
         );
     }
 }
