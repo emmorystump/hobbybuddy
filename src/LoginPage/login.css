@@ -22,6 +22,7 @@ body {
 .title{
     text-align: center;
     padding-top: 10px;
+    padding-bottom: 10px;
     color: #18A2B8;
     font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
@@ -33,8 +34,15 @@ body {
 }
 .butt {
     padding-top: 10px;
+    padding-bottom: 10px;
+}
+#submitLogin{
+    padding-left: 120px;
 }
 
+#credentials {
+    text-align: center;
+}
 /* Inspired by https://speckyboy.com/login-pages-html5-css/ */
 .un {
     width: 76%;

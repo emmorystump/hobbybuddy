@@ -12,9 +12,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            location: "",
-            username: "",
-            hobbies: []
+            email: "",
+            password: "",
         };
     }
 
@@ -22,41 +21,75 @@ class Login extends Component {
     isActive: false
     };
 
-    handleShow = () => {
+    toCredentials = () => {
     this.setState({isActive: true});
     };
 
-    handleHide = () => {
+    toLogin = () => {
     this.setState({isActive: false});
     };
+
+    finishLogin() {
+        var self = this;
+        const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!regexp.test(this.state.email)) { 
+            alert('invalid email address!');
+        } else {
+            firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+            .then((user) => {
+
+                // Signed in 
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+            });
+        }
+
+    }
     
     render() {
-        return (
-            <div>
-                {/* {this.state.isActive && <h1>Hello react</h1>}
-                {this.state.isActive ?(
-                    <HideButton onClick={this.handleHide}/>
-                ) : (
-                    <ShowButton onClick={this.handleShow}/>
-                )} */}
-                <div className="main">
+        if (this.state.isActive) {
+            return (
+                <div>
+                    <div className="main">
+                        <img src={hobee} alt="HoBee" id="hobee"></img>
+                        <div className="title"><h1>Hobby Buddy</h1></div>
+                        <div id="credentials">
+                            <form method="post">
+                                <div class="un">
+                                    <input type="text" name="email" placeholder="Email" required="required" value={this.state.email}/>
+                                </div>
+                                <div class="pass">
+                                    <input type="password" name="pwd" placeholder="Password" required="required" value={this.state.password}/>
+                                </div>
+                                <div class="butt">
+                                    <button class="btn btn-secondary" id="back" onClick={this.toLogin}>Back</button>
+                                    <span id="submitLogin"><button class="btn btn-info" onClick={() => this.finishLogin()}>Submit</button></span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+            );
+          } else {
+            return (
+              <div>
+                  <div className="main">
                     <img src={hobee} alt="HoBee" id="hobee"></img>
                     <div className="title"><h1>Hobby Buddy</h1></div>
                     <div id="loginMain">
-                        <div class="butt"><button type="button" class="btn btn-info btn-lg">Log In</button></div>
+                        <div class="butt"><button onClick={this.toCredentials} class="btn btn-info btn-lg">Log In</button></div>
                         <div class="butt"><button type="submit" class="btn btn-secondary btn-lg">Sign Up</button></div>
                     </div>
-                    <div className="Credentials">
-                        <form method="post">
-                            <input type="text" name="usrname" placeholder="Username" required="required" />
-                            <input type="password" name="pwd" placeholder="Password" required="required" />
-                            <button type="button" class="btn btn-secondary">Back</button>
-                            <button type="submit" class="btn btn-info">Submit</button>
-                        </form>
-                    </div>
                 </div>
-            </div>
-        );
+              </div>
+            );
+        }
+        // return (
+            
+        // );
     }
 }
 
