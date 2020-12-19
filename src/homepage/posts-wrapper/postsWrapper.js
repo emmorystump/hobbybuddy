@@ -65,7 +65,24 @@ class PostsWrapper extends Component {
 
     likePost(postId) {
         //like the post
-        var userId = this.state.userid;
+        // var userId = this.state.userid;
+        // let database = firebase.database();
+        // database.ref('Hobbies/'+this.state.selectedHobby+"/Likes/").add({
+
+        //   }, (error) => {
+        //       if (error) {
+        //         alert("Due to server issues, submission failed! Please try again later.");
+        //       } else {
+        //         database.ref('Hobbies/'+this.state.selectedHobby+"/Posts").update({PostCount: newPostCount} , (updateError) => {
+        //             if (updateError) {
+        //                 alert("Due to server issues, submission failed! Please try again later.");
+        //             } else {
+        //                 alert("Sucessfully submitted a new post! Redirecting to homepage now...");
+        //                 self.props.history.push('/');
+        //             }
+        //         });
+        //       }
+        //   });
     }
     
 

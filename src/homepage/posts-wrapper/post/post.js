@@ -12,6 +12,7 @@ class Post extends Component {
             commentToAdd: '',
             userid: ''
         };
+        this.addComment = this.addComment.bind(this);
     }
 
     componentDidMount() {
@@ -27,12 +28,25 @@ class Post extends Component {
         });
     }
 
-    addComment() {
-        //like the post
-        var userId = this.state.userid;
+    addComment(id) {
         //add comment to post 
         //clear state "commentToAdd"
         //reload render
+        var userId = this.state.userid;
+        var postId = id;
+        
+        console.log("entered comment submit")
+        let database = firebase.database();
+        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments").set({
+            Author: userId,
+            Content: this.state.commentToAdd
+            }, (error) => {
+                if (error) {
+                //alert("Due to server issues, submission failed! Please try again later.");
+                } else {
+
+                }
+        });
     }
     
     render() {
@@ -44,15 +58,15 @@ class Post extends Component {
         if (post.Comments) {
             var comments = post.Comments;
             commentRendered = comments.map((comment, index) => {
-                var author = comment.Author;
-                var content = comment.Content;
+                var commentauthor = comment.Author;
+                var commentcontent = comment.Content;
                 return (
                     <div className="singleComment">
                         <div className="leftAlign">
-                            {content}
+                            {commentcontent}
                         </div>
                         <div className="rightAlign">
-                            <text className="postAuthor">{author}</text>
+                            <text className="postAuthor">{commentauthor}</text>
                         </div>
                     </div>); 
             })
@@ -79,7 +93,7 @@ class Post extends Component {
                         <textarea className = "input" type = "text" onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
                     </div>
                     <div className="rightAlign">
-                        <button className="commentButton" onClick={this.addComment}>Submit</button>
+                        <button className="commentButton" onClick={this.addComment(id)}>Submit</button>
                     </div>
                     
                 </div>

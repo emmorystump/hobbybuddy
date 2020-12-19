@@ -72,13 +72,6 @@ class Homepage extends Component {
     }
 
     render() {
-        var postState;
-        // if (this.props.postState) {
-        //     console.log("heyyy")
-        //     console.log(this.props.postState)
-        //     postState = this.props.postState;
-        // console.log(this.props.postState);
-        // }
         return (
             <div>
                 <Navbar email={this.state.email} />
@@ -91,7 +84,7 @@ class Homepage extends Component {
                         <ChatWrapper />
                     </Col>
                     <Col xs={8}>
-                        <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
+                        <PostsWrapper selectedHobby={this.state.selectedHobby}/>
                     </Col>
                     <Col>
                         <SuggestedHobbies />
