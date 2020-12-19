@@ -28,7 +28,7 @@ const Navigationbar = ({ name }) => {
 const signOut = () => {
     firebase.auth().signOut().then(function() {
         console.log('signOut Success');
-        useHistory().push('/');
+        useHistory().push('/login');
     }).catch(function(error) {
     // An error happened.
     });   

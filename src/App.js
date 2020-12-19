@@ -22,17 +22,6 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
-    // firebase.auth().signInWithEmailAndPassword('tomriddle@nowhere.com', 'eightone')
-    // .then((user) => {
-    //   console.log('sign in success')
-    // })
-    // .catch((error) => {
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    // });
-  }
-
   // https://stackoverflow.com/questions/56828703/only-display-component-for-some-routes-react 
   render() {
     return (
