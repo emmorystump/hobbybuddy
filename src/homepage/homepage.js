@@ -48,6 +48,9 @@ class Homepage extends Component {
       }
 
     setValues(text) {
+        if (text.length == 0){
+            return
+        }
         var clickedHobby = text[0].label;
         this.togglePopup(clickedHobby)
     }
