@@ -73,7 +73,7 @@ class Homepage extends Component {
         this.togglePopup(clickedHobby);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var self = this;
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {

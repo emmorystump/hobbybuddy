@@ -141,7 +141,7 @@ class ChatWrapper extends Component {
                             targetid={chatlogs[curTargetIndex].TargetId} />;
         }
         return (
-            <div class="chatWrapper">
+            <div className="chatWrapper">
                 {chatState}
             </div>   
         );
