@@ -69,6 +69,17 @@ class SuggestedHobbies extends Component {
         });
     }
 
+    removeSuggestedHobby(e) {
+        console.log(e)
+        var array = this.state.hobbyOptions
+        var index = array.indexOf(e)
+        if (index !== -1) {
+          array.splice(index, 1);
+          this.setState({hobbyOptions: array});
+        }
+        console.log(this.state.hobbyOptions);
+      }
+
     addHobby(hobby) {
        var newHobbyList = this.state.addedHobbies;
        console.log(newHobbyList);
@@ -79,6 +90,8 @@ class SuggestedHobbies extends Component {
        this.setState({
             addedHobbies: newHobbyList
         });
+
+        this.removeSuggestedHobby(hobby);
 
         var newKey = newHobbyList.length;
         console.log(newKey);
