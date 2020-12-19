@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import './profile.css';
-import ChatWrapper from '../homepage/chat/chatWrapper';
+import Chat from '../homepage/chat/chatWrapper';
 import Navbar from '../components/Navbar';
 
 class Profile extends Component {
@@ -26,6 +26,7 @@ class Profile extends Component {
                 let userInfo = firebase.database().ref('Users/'+uid);
                 userInfo.on('value', (snapshot) =>{
                     let user =  snapshot.val();
+                    console.log(user.Hobbies);
                     self.setState({
                         location: user.Location,
                         username: user.Username,
@@ -37,33 +38,37 @@ class Profile extends Component {
               alert("Sign in first");
             }
         });
+        
     }
 
 
-    deleteHobby(hobby){
+    deleteHobby(hobbyKeys){
         let currentHobbies = this.state.hobbies;
-        let index = currentHobbies.indexOf(hobby)
-        if (index !== -1) {
-            currentHobbies.splice(index, 1);
+
+        firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
+
+        if (hobbyKeys !== -1) {
+            currentHobbies.splice(hobbyKeys, 1);
             this.setState({hobbies: currentHobbies});
-            firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + index).remove();
         }
     }
     
     render() {
         let listOfHobbies;
-        console.log(this.state.hobbies);
-        if (this.state.hobbies != null) {
+        let hobbyKeys = Object.keys(this.state.hobbies);
+       
+        if (this.state.hobbies != null && this.state.hobbies.length > 0) {
             listOfHobbies = (
                 <div>
                     <h3 className="box-title">Your hobbies</h3>
                     <div className="hobbies-container">
-                        {this.state.hobbies.map((hobby, index) =>
+
+                        {hobbyKeys.map((hobbyKeys, index) =>
                             <div className="hobby-box" key={index}>
-                                <div className="deleteBtn" onClick={() => this.deleteHobby(hobby)}>
+                                <div className="deleteBtn" onClick={() => this.deleteHobby(hobbyKeys)}>
                                     <svg height="30" width="30"><rect y="12" x="5" fill="white" width="20" height="5" ></rect> </svg>
                                 </div>
-                                <h1>{hobby}</h1>
+                                <h1>{this.state.hobbies[hobbyKeys]}</h1>
                             </div>
                         )}
                     </div>
@@ -80,16 +85,17 @@ class Profile extends Component {
         return (
             <div>
                 <Navbar name={this.state.username} />
+                
                 <div className="profile-banner">
                     <div className="user-image"></div>
 
-                    <div className="title" >
+                    <div className="profile-title" >
                         <h1>{this.state.username}</h1>
                         <p>Some description here that is now static.</p>
                     </div>
                 </div>
+                <Chat />
                 {listOfHobbies}
-                <ChatWrapper userid={this.state.uid}/>
             </div>   
         );
     }
