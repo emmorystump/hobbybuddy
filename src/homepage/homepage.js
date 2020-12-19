@@ -73,19 +73,11 @@ class Homepage extends Component {
     }
 
     render() {
-        var postState;
         let username;
         firebase.database().ref('Users/'+ this.state.uid).on("value", snapshot => {
             let user =  snapshot.val();
             username = user.Username;     
         });
-        // console.log(username);
-        // if (this.props.postState) {
-        //     console.log("heyyy")
-        //     console.log(this.props.postState)
-        //     postState = this.props.postState;
-        // console.log(this.props.postState);
-        // }
         return (
             <div>
                 <Navbar name={username} />
@@ -98,7 +90,7 @@ class Homepage extends Component {
                         <ChatWrapper />
                     </Col>
                     <Col xs={8}>
-                        <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
+                        <PostsWrapper selectedHobby={this.state.selectedHobby}/>
                     </Col>
                     <Col>
                         <SuggestedHobbies />

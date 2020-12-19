@@ -13,10 +13,11 @@ class PostsWrapper extends Component {
             postsList: [],
             userid: '',
             showPostDetail: -1,
-            selectedHobby: this.props.selectedHobby,
+            selectedHobby: this.props.selectedHobby
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
+        this.updatePosts = this.updatePosts.bind(this);
     }
 
     componentDidMount() {
@@ -41,27 +42,19 @@ class PostsWrapper extends Component {
         });
     }
 
-    componentDidUpdate() {
-        console.log("componen updated")
-        // var self = this;
-        // firebase.auth().onAuthStateChanged(function(user) {
-        //     if (user) {
-        //         let userid = user.uid;
-        //         var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
-        //         hobbyRef.once('value', (snapshot) =>{
-        //             const postObjects = snapshot.val();
-        //             console.log(postObjects);
-        //             const arr = Object.values(postObjects);
-        //             console.log(arr);
-        //             self.setState({
-        //                 postsList: arr,
-        //                 userid: userid
-        //             });
-        //         });   
-        //     } else {
-        //     //   alert("Sign in first");
-        //     }
-        // });
+    updatePosts() {
+        var self = this;
+        var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
+        hobbyRef.once('value', (snapshot) =>{
+            const postObjects = snapshot.val();
+            console.log(postObjects);
+            const arr = Object.values(postObjects);
+            console.log(arr);
+            self.setState({
+                postsList: arr,
+                selectedHobby: self.props.selectedHobby
+            });
+        }); 
     }
 
     stateChange(id) {
@@ -72,10 +65,32 @@ class PostsWrapper extends Component {
 
     likePost(postId) {
         //like the post
-        var userId = this.state.userid;
+        // var userId = this.state.userid;
+        // let database = firebase.database();
+        // database.ref('Hobbies/'+this.state.selectedHobby+"/Likes/").add({
+
+        //   }, (error) => {
+        //       if (error) {
+        //         alert("Due to server issues, submission failed! Please try again later.");
+        //       } else {
+        //         database.ref('Hobbies/'+this.state.selectedHobby+"/Posts").update({PostCount: newPostCount} , (updateError) => {
+        //             if (updateError) {
+        //                 alert("Due to server issues, submission failed! Please try again later.");
+        //             } else {
+        //                 alert("Sucessfully submitted a new post! Redirecting to homepage now...");
+        //                 self.props.history.push('/');
+        //             }
+        //         });
+        //       }
+        //   });
     }
     
+
     render() {
+        // console.log("running render");
+        if (this.props.selectedHobby !== this.state.selectedHobby) {
+            this.updatePosts();
+        }
         let posts;
         if (this.state.showPostDetail === -1) {
             posts = this.state.postsList.map((post, index) => {
@@ -97,7 +112,8 @@ class PostsWrapper extends Component {
                                     View Post/Comment
                                 </button>
                             </div>
-                        </div>);
+                        </div>
+                    );
                 }
             })  
         }
@@ -108,7 +124,7 @@ class PostsWrapper extends Component {
             <div className="postsWrapper">
                 <div id="wrapperHeader">
                     <div className="centerText">
-                        <strong>{this.props.selectedHobby}</strong><br></br>
+                        <strong>{this.state.selectedHobby}</strong><br></br>
                         <i>Recommended for you:</i>
                     </div>
                     {this.state.showPostDetail === -1 && 
