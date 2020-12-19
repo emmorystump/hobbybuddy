@@ -42,21 +42,29 @@ class Profile extends Component {
 
 
     deleteHobby(hobbyKeys){
-        let currentHobbies = this.state.hobbies;
+        let currentHobbies = null
+        if(this.state.hobbies !== undefined){
+            currentHobbies = this.state.hobbies;
+        }
 
-        firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
+        if(currentHobbies !== null) {
+            firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
 
-        if (hobbyKeys !== -1) {
             currentHobbies.splice(hobbyKeys, 1);
+            // delete currentHobbies.hobbyKeys;
             this.setState({hobbies: currentHobbies});
+            
         }
     }
     
     render() {
         let listOfHobbies;
-        let hobbyKeys = Object.keys(this.state.hobbies);
-       
-        if (this.state.hobbies != null && this.state.hobbies.length > 0) {
+        let hobbyKeys = null;
+        if(this.state.hobbies !== undefined){
+            hobbyKeys = Object.keys(this.state.hobbies);
+        }
+        
+        if (hobbyKeys != null && hobbyKeys.length > 0) {
             listOfHobbies = (
                 <div>
                     <h3 className="box-title">Your hobbies</h3>
