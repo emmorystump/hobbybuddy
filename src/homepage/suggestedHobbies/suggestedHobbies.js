@@ -16,6 +16,8 @@ class SuggestedHobbies extends Component {
         this.state = {
             addedHobbies: [],
             hobbyOptions: [],
+            switchHobby: this.props.switchHobby,
+            uid: ''
         }
     }
 
@@ -24,6 +26,7 @@ class SuggestedHobbies extends Component {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
+                console.log(user.uid);
                 let userid = user.uid;
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
@@ -32,6 +35,7 @@ class SuggestedHobbies extends Component {
                         if (hobbies.length) {
                             self.setState({
                                 addedHobbies: hobbies,
+                                uid: userid
                             });
                         } 
                     }
@@ -44,15 +48,21 @@ class SuggestedHobbies extends Component {
                 hobbiesInfo.on('value', (snapshot) => {
                     console.log("hobby Info")
                     const hobbies = snapshot.val();
-                    var suggested = [];
-                    for(let i = 0; i < self.state.addedHobbies.length; i++) {
-                        var key = self.state.addedHobbies[i];
-                        var hobbyInfo = hobbies[key];
-                        var related = hobbyInfo["Related Hobbies"];
-                        console.log(related)
-                        for(var j in related) {
-                            suggested.push(related[j])
+                    if (hobbies) {
+                        var suggested = [];
+                        for(let i = 0; i < self.state.addedHobbies.length; i++) {
+                            var key = self.state.addedHobbies[i];
+                            var hobbyInfo = hobbies[key];
+                            var related = hobbyInfo["Related Hobbies"];
+                            console.log(related)
+                            for(var j in related) {
+                                suggested.push(related[j])
+                            }
                         }
+    
+                        self.setState({
+                            hobbyOptions: suggested    
+                        });
                     }
 
                     self.setState({
@@ -64,13 +74,62 @@ class SuggestedHobbies extends Component {
         });
     }
 
+    removeSuggestedHobby(e) {
+        console.log(e)
+        var array = this.state.hobbyOptions
+        var index = array.indexOf(e)
+        if (index !== -1) {
+          array.splice(index, 1);
+          this.setState({hobbyOptions: array});
+        }
+        console.log(this.state.hobbyOptions);
+      }
+
+    addHobby(hobby) {
+       var newHobbyList = this.state.addedHobbies;
+       console.log("originl list" + newHobbyList);
+
+       newHobbyList.push(hobby);
+       console.log("added" + newHobbyList);
+        
+       this.setState({
+            addedHobbies: newHobbyList
+        });
+
+        this.removeSuggestedHobby(hobby);
+
+        var newKey = newHobbyList.length;
+        // add this hobby to the database
+
+        console.log(this.state.uid);
+
+        let database = firebase.database();
+        var hobbyIdRef = database.ref('Hobbies/'+hobby+"/HobbyId");
+        console.log(hobbyIdRef);
+        hobbyIdRef.once('value', (snapshot) => {
+            let hobbyId = snapshot.val();
+            database.ref('Users/'+this.state.uid+"/Hobbies/").update({
+                [hobbyId]: hobby
+                }, (error) => {
+                    if (error) {
+                        console.log('hobby add - error')
+                    } else {
+                        console.log('hobby add - success')
+                    }
+            });
+        })
+        // call switch hobby
+        this.state.switchHobby(hobby)
+    }
+
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row key={hobby}><Button variant="dark" className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
+            <Row key={hobby}><Button variant="light" onClick={() => this.addHobby(hobby)} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
+                <h4>Suggested Hobbies</h4>
                 {hobbyButtonElements}
             </div>
         );

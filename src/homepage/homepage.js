@@ -12,7 +12,7 @@ import 'firebase/auth';
 import './homepage.css';
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap';
-import Navbar from '../components/Navbar';
+import Navigationbar from '../components/Navbar';
 import Select from 'react-dropdown-select'
 
 const HobbySearchList = [
@@ -33,18 +33,37 @@ class Homepage extends Component {
             selectedHobby: 'Biking',
             email: '',
             uid: '',
+            username: '',
             showPopup: false,
             searchedHobby: 'Biking',
         };
         this.switchHobby = this.switchHobby.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
     
-    togglePopup(text) {
+    togglePopup(text, adding) {
         this.setState({
           showPopup: !this.state.showPopup
         });
         this.setState({searchedHobby:text});
+        console.log("text")
+        if (adding) {
+            let database = firebase.database();
+            var hobbyIdRef = database.ref('Hobbies/'+text+"/HobbyId");
+            hobbyIdRef.once('value', (snapshot) =>{
+                let hobbyId = snapshot.val();
+                database.ref('Users/'+this.state.uid+"/Hobbies/").update({
+                    [hobbyId]: text
+                  }, (error) => {
+                      if (error) {
+                        alert("Due to server issues, submission failed! Please try again later.");
+                      } else {
+                          
+                      }
+                  });
+            });
+        }
       }
 
     setValues(text) {
@@ -52,35 +71,25 @@ class Homepage extends Component {
             return
         }
         var clickedHobby = text[0].label;
-        this.togglePopup(clickedHobby)
+        this.togglePopup(clickedHobby);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var self = this;
-        var user = firebase.auth().currentUser;
         firebase.auth().onAuthStateChanged((user) => {
-            console.log("succeed");
-            console.log(user.email);
-            console.log(user.displayName);
             if (user) {
+                console.log("succeed");
+                console.log(user.email);
+                console.log(user.displayName);
                 self.setState({
                     email: user.email,
-                    uid: user.uid
+                    uid: user.uid,
+                    username: user.displayName,
                   });
             } else {
-              // User is signed out
-              // ...
+                self.props.history.push('/login');
             }
           });
-    }
-
-    logout() {
-        firebase.auth().signOut().then(function() {
-            
-          }).catch(function(error) {
-            // An error happened.
-          });
-          
     }
 
     switchHobby(hobby) {
@@ -90,14 +99,9 @@ class Homepage extends Component {
     }
 
     render() {
-        let username;
-        firebase.database().ref('Users/'+ this.state.uid).on("value", snapshot => {
-            let user =  snapshot.val();
-            username = user.Username;     
-        });
         return (
             <div>
-                <Navbar name={username} />
+                <Navigationbar name={this.state.username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>
@@ -112,13 +116,13 @@ class Homepage extends Component {
                             }
                         <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
                         <UserHobbies switchHobby={this.switchHobby}/>
-                        <ChatWrapper />
+                        <ChatWrapper userid={this.state.uid}/>
                     </Col>
                     <Col xs={8}>
                         <PostsWrapper selectedHobby={this.state.selectedHobby}/>
                     </Col>
                     <Col>
-                        <SuggestedHobbies />
+                        <SuggestedHobbies switchHobby={this.switchHobby}/>
                     </Col>
 
                 </Row>
@@ -134,8 +138,8 @@ class Popup extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <h5>Add {this.props.text}?</h5>
-          <button onClick={this.props.closePopup}>Yes</button>
-          <button onClick={this.props.closePopup}>Cancel</button>
+            <button onClick={() => this.props.closePopup(this.props.text, true)}>Yes</button>
+            <button onClick={() => this.props.closePopup(this.props.text, false)}>Cancel</button>
           </div>
         </div>
       );

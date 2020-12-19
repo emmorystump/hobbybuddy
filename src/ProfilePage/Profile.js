@@ -4,7 +4,7 @@ import 'firebase/auth';
 import 'firebase/database';
 
 import './profile.css';
-import Chat from '../homepage/chat/chatWrapper';
+import ChatWrapper from '../homepage/chat/chatWrapper';
 import Navbar from '../components/Navbar';
 
 class Profile extends Component {
@@ -34,7 +34,6 @@ class Profile extends Component {
                     })
                 });
             } else {
-              alert("Sign in first");
             }
         });
     }
@@ -88,8 +87,8 @@ class Profile extends Component {
                         <p>Some description here that is now static.</p>
                     </div>
                 </div>
-                <Chat />
                 {listOfHobbies}
+                <ChatWrapper userid={this.state.uid}/>
             </div>   
         );
     }

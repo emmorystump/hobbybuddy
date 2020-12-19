@@ -8,22 +8,22 @@ class ChatState2 extends Component {
         super(props);
         this.state = {
             stateChange: this.props.stateChange,
-            chatList: this.props.chatList,
             searchText: '',
             searchUser: this.props.searchUser,
+            blockUser: this.props.blockUser,
         };
     }
     render() {
-        const {stateChange, chatList, searchText, searchUser} = this.state;
-        let chats = chatList.map((chat, index) => {
+        const {stateChange, searchText, searchUser, blockUser} = this.state;
+        let chats = this.props.chatList.map((chat, index) => {
             return (
             <div key={chat} className="chatbox">
                 <button className="chatbutton" onClick={() => stateChange(3, index)}>{chat}</button>
-                <button className="blockbutton">block</button>
+                <button className="blockbutton" onClick={() => blockUser(index)}>block</button>
             </div>);
         })
         return (
-        <div className="container">
+        <div className="chatContainer">
             <div className="chatTopRow">
                 Chat
                 <img className="chatPushdown" src={pushdown} onClick={() => stateChange(1, -1)} alt="Back" />

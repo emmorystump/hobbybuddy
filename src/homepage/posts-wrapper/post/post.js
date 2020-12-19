@@ -25,7 +25,6 @@ class Post extends Component {
                     userid: user.uid
                 });
             } else {
-              alert("Sign in first");
             }
         });
     }

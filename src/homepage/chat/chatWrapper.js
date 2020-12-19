@@ -15,11 +15,11 @@ class ChatWrapper extends Component {
             chatlogs: [],
             curTarget: '',
             curTargetIndex: -1,
-            userid: '',
         };
         this.StateChange = this.StateChange.bind(this);
         this.SearchUser = this.SearchUser.bind(this);
         this.StateChangeWithDataRefresh = this.StateChangeWithDataRefresh.bind(this);
+        this.BlockUser = this.BlockUser.bind(this);
     }
 
     componentDidMount() {
@@ -33,12 +33,10 @@ class ChatWrapper extends Component {
                     if (chatlogObjects) {
                         self.setState({
                             chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
-                            userid: userid
                         });
                     }
                 });
             } else {
-              alert("Sign in first");
             }
         });
     }
@@ -58,7 +56,7 @@ class ChatWrapper extends Component {
                     TargetId: targetid,
                 }
                 let database = firebase.database();
-                var messagesRef = database.ref('Users/'+self.state.userid+"/Chatlogs/"+targetid);
+                var messagesRef = database.ref('Users/'+self.props.userid+"/Chatlogs/"+targetid);
                 messagesRef.set(newChat, (error) => {
                     if (error) {
                         alert("Due to server issues, search failed! Please try again later.");
@@ -76,24 +74,32 @@ class ChatWrapper extends Component {
         });
     }
 
+    BlockUser(index) {
+        var self = this;
+        let chatlog = self.state.chatlogs[index];
+        let database = firebase.database();
+        var chatlogRef = database.ref('Users/'+self.props.userid+"/Chatlogs/"+chatlog.TargetId);
+        console.log('Users/'+self.props.userid+"/Chatlogs");
+        chatlogRef.remove();
+        let newChatlogs = [...self.state.chatlogs];
+        newChatlogs.splice(index, 1);
+        self.setState({
+            chatlogs: newChatlogs
+        });
+    }
+
     StateChangeWithDataRefresh(state) {
         var self = this;
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                let userid = user.uid;
-                var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
-                userChatlogsRef.once('value', (snapshot) =>{
-                    const chatlogObjects = snapshot.val();
-                    if (chatlogObjects) {
-                        self.setState({
-                            curChatState: state,
-                            chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
-                            userid: userid
-                        });
-                    }
+        let userid = self.props.userid;
+        var userChatlogsRef = firebase.database().ref('Users/'+userid+"/Chatlogs");
+        userChatlogsRef.once('value', (snapshot) =>{
+            const chatlogObjects = snapshot.val();
+            if (chatlogObjects) {
+                self.setState({
+                    curChatState: state,
+                    chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
+                    userid: userid
                 });
-            } else {
-              alert("Sign in first");
             }
         });
     }
@@ -112,7 +118,7 @@ class ChatWrapper extends Component {
     
     render() {
         let chatState;
-        const {curChatState, chatlogs, curTarget, curTargetIndex, userid} = this.state;
+        const {curChatState, chatlogs, curTarget, curTargetIndex} = this.state;
         if (curChatState === 1) {
             chatState = <ChatState1 stateChange={this.StateChange} />;
         } else if (curChatState === 2) {
@@ -121,7 +127,8 @@ class ChatWrapper extends Component {
             chatState = <ChatState2
                             stateChange={this.StateChange}
                             chatList={chatList}
-                            searchUser={this.SearchUser} />;
+                            searchUser={this.SearchUser}
+                            blockUser = {this.BlockUser} />;
         } else {
             let messages = chatlogs[curTargetIndex].Messages;
             if (messages === undefined) messages = [];
@@ -130,7 +137,7 @@ class ChatWrapper extends Component {
                             stateChange={this.StateChangeWithDataRefresh}
                             target={curTarget}
                             messages={messages}
-                            userid={userid}
+                            userid={this.props.userid}
                             targetid={chatlogs[curTargetIndex].TargetId} />;
         }
         return (

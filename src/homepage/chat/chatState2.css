@@ -34,7 +34,7 @@
     border: 0px;
 }
 
-.container {
+.chatContainer {
     border: 2px solid black;
     width: 170px;
     padding-bottom: 5px;
@@ -75,6 +75,6 @@
     top: 0px;
 }
 
-.searchIcon:hover {
+.chatSearchIcon:hover {
     cursor: pointer;
 }

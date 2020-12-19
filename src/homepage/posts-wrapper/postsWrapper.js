@@ -40,7 +40,6 @@ class PostsWrapper extends Component {
                     });
                 });   
             } else {
-            //   alert("Sign in first");
             }
         });
     }
@@ -91,7 +90,7 @@ class PostsWrapper extends Component {
                     return (
                         <div key={id} className="postbox">
                             <div>
-                                <text className="postAuthor">{author}</text>
+                                <div className="postAuthor">{author}</div>
                                 {description}
                             </div>
                             <div className="rightAlign">
@@ -134,7 +133,7 @@ class PostsWrapper extends Component {
                         </div>
                     }
                 </div>
-                <div class="mainPostsBox">
+                <div className="mainPostsBox">
                     {posts}
                 </div>
             </div>   
