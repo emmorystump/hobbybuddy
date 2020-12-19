@@ -12,13 +12,14 @@ class PostsWrapper extends Component {
         this.state = {
             postsList: [],
             userid: '',
-            showPostDetail: -1
+            showPostDetail: -1,
+            selectedHobby: this.props.selectedHobby,
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         var self = this;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -38,6 +39,29 @@ class PostsWrapper extends Component {
             //   alert("Sign in first");
             }
         });
+    }
+
+    componentDidUpdate() {
+        console.log("componen updated")
+        // var self = this;
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if (user) {
+        //         let userid = user.uid;
+        //         var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
+        //         hobbyRef.once('value', (snapshot) =>{
+        //             const postObjects = snapshot.val();
+        //             console.log(postObjects);
+        //             const arr = Object.values(postObjects);
+        //             console.log(arr);
+        //             self.setState({
+        //                 postsList: arr,
+        //                 userid: userid
+        //             });
+        //         });   
+        //     } else {
+        //     //   alert("Sign in first");
+        //     }
+        // });
     }
 
     stateChange(id) {
