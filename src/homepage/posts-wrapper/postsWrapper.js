@@ -40,7 +40,6 @@ class PostsWrapper extends Component {
                     });
                 });   
             } else {
-            //   alert("Sign in first");
             }
         });
     }

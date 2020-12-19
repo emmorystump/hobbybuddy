@@ -47,7 +47,7 @@ class ChatState3 extends Component {
                 return <div key = {index} className="fromMessages">{message.Content}</div>
         })
         return (
-        <div className="container">
+        <div className="chatContainer">
             <div className="targetTopRow">
                 <img className="chatBack" src={back} onClick={() => stateChange(2)} alt="Back" />
                 Chat

@@ -37,7 +37,6 @@ class ChatWrapper extends Component {
                     }
                 });
             } else {
-              alert("Sign in first");
             }
         });
     }
