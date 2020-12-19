@@ -32,7 +32,8 @@ class Homepage extends Component {
         this.state = {
             selectedHobby: 'Biking',
             email: '',
-            uid: ''
+            uid: '',
+            username: '',
         };
         this.switchHobby = this.switchHobby.bind(this);
     }
@@ -43,30 +44,20 @@ class Homepage extends Component {
 
     componentWillMount() {
         var self = this;
-        var user = firebase.auth().currentUser;
         firebase.auth().onAuthStateChanged((user) => {
-            console.log("succeed");
-            console.log(user.email);
-            console.log(user.displayName);
             if (user) {
+                console.log("succeed");
+                console.log(user.email);
+                console.log(user.displayName);
                 self.setState({
                     email: user.email,
-                    uid: user.uid
+                    uid: user.uid,
+                    username: user.displayName,
                   });
             } else {
-              // User is signed out
-              // ...
+                self.props.history.push('/signup');
             }
           });
-    }
-
-    logout() {
-        firebase.auth().signOut().then(function() {
-            
-          }).catch(function(error) {
-            // An error happened.
-          });
-          
     }
 
     switchHobby(hobby) {
@@ -76,21 +67,16 @@ class Homepage extends Component {
     }
 
     render() {
-        let username;
-        firebase.database().ref('Users/'+ this.state.uid).on("value", snapshot => {
-            let user =  snapshot.val();
-            username = user.Username;     
-        });
         return (
             <div>
-                <Navbar name={username} />
+                <Navbar name={this.state.username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>
                     <Col xs={2}>
                         <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
                         <UserHobbies switchHobby={this.switchHobby}/>
-                        <ChatWrapper />
+                        <ChatWrapper userid={this.state.uid}/>
                     </Col>
                     <Col xs={8}>
                         <PostsWrapper selectedHobby={this.state.selectedHobby}/>
