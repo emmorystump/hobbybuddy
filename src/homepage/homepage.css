@@ -10,7 +10,18 @@
     padding-left: 30px;
     padding-right: 30px;
 }
-
+.requestHobbyButton {    
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    width: fit-content;
+    background-color: lightgrey;
+    margin-left: 20px;
+    margin-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 .nav-row {
     padding-left: 10px;
     padding-right: 10px;

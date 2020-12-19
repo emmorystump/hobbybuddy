@@ -110,7 +110,7 @@ class Homepage extends Component {
                             />
                             : null
                             }
-                        <a href="/requestHobby"><button class="createPostButton">Request Hobby</button></a>
+                        <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
                         <UserHobbies switchHobby={this.switchHobby}/>
                         <ChatWrapper />
                     </Col>
