@@ -13,7 +13,8 @@ class PostsWrapper extends Component {
             postsList: [],
             userid: '',
             showPostDetail: -1,
-            selectedHobby: this.props.selectedHobby
+            selectedHobby: this.props.selectedHobby,
+            username: '',
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
@@ -33,7 +34,8 @@ class PostsWrapper extends Component {
                     console.log(arr);
                     self.setState({
                         postsList: arr,
-                        userid: userid
+                        userid: userid,
+                        username: user.displayName
                     });
                 });   
             } else {
@@ -118,7 +120,7 @@ class PostsWrapper extends Component {
             })  
         }
         else {
-            posts = <Post likePost={this.likePost} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
+            posts = <Post username={this.state.username} likePost={this.likePost} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
         }
         return (
             <div className="postsWrapper">

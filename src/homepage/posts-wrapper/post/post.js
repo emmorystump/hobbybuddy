@@ -10,7 +10,9 @@ class Post extends Component {
         super(props);
         this.state = {
             commentToAdd: '',
-            userid: ''
+            userid: '',
+            username: this.props.username,
+            selectedHobby: this.props.selectedHobby,
         };
         this.addComment = this.addComment.bind(this);
     }
@@ -32,19 +34,21 @@ class Post extends Component {
         //add comment to post 
         //clear state "commentToAdd"
         //reload render
-        var userId = this.state.userid;
+        var username = this.state.username;
         var postId = id;
-        
+        var post = this.props.postInfo;
         console.log("entered comment submit")
         let database = firebase.database();
-        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments").set({
-            Author: userId,
+        let commentid = post.Comments ? post.Comments.length : 0;
+        console.log('path:'+('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments/"+commentid));
+        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments/"+commentid).set({
+            Author: username,
             Content: this.state.commentToAdd
             }, (error) => {
                 if (error) {
                 //alert("Due to server issues, submission failed! Please try again later.");
                 } else {
-
+                    console.log('success')
                 }
         });
     }
