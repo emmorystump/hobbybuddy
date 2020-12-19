@@ -26,18 +26,15 @@ class SuggestedHobbies extends Component {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                console.log(user.uid);
                 let userid = user.uid;
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
                     if (hobbies) {
-                        if (hobbies.length) {
-                            self.setState({
-                                addedHobbies: hobbies,
-                                uid: userid
-                            });
-                        } 
+                        self.setState({
+                            addedHobbies: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId]),
+                            uid: userid
+                        });
                     }
 
                 });
@@ -46,34 +43,37 @@ class SuggestedHobbies extends Component {
             if (user) {
                 var hobbiesInfo = firebase.database().ref("Hobbies");
                 hobbiesInfo.on('value', (snapshot) => {
-                    console.log("hobby Info")
                     const hobbies = snapshot.val();
+                    console.log("suggested hobbies here");
+                    console.log(hobbies);
                     if (hobbies) {
                         var suggested = [];
+                        console.log("suggested added hobbies here");
+                        console.log(self.state.addedHobbies);
                         for(let i = 0; i < self.state.addedHobbies.length; i++) {
                             var key = self.state.addedHobbies[i];
                             var hobbyInfo = hobbies[key];
+                            console.log("suggested hobbies info here");
+                            console.log(hobbyInfo);
                                 if(hobbyInfo != undefined) {
-                                // if(hobbyInfo) {
-                                console.log(hobbyInfo);
-                                var related = hobbyInfo["Related Hobbies"];
-                                console.log(related)
-                                for(var j in related) {
-                                    if(self.state.addedHobbies.indexOf(related[j]) == -1) {
-                                        suggested.push(related[j])
+                                    var related = hobbyInfo["Related Hobbies"];
+                                    for(var j in related) {
+                                        console.log('related[j');
+                                        console.log(related[j]);
+                                        if(self.state.addedHobbies.indexOf(related[j]) == -1) {
+                                            console.log("got herer");
+                                            suggested.push(related[j])
+                                        }
                                     }
-                                }
                             }
                         }
     
                         self.setState({
                             hobbyOptions: suggested    
                         });
+                        console.log("suggested hobbies options here");
+                        console.log(self.state.hobbyOptions);
                     }
-
-                    self.setState({
-                        hobbyOptions: suggested,
-                    });
                     
                 });
             }
@@ -81,14 +81,12 @@ class SuggestedHobbies extends Component {
     }
 
     removeSuggestedHobby(e) {
-        console.log(e)
         var array = this.state.hobbyOptions
         var index = array.indexOf(e)
         if (index !== -1) {
           array.splice(index, 1);
           this.setState({hobbyOptions: array});
         }
-        console.log(this.state.hobbyOptions);
       }
 
     addHobby(hobby) {
