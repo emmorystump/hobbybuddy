@@ -121,7 +121,7 @@ class Homepage extends Component {
                         <PostsWrapper selectedHobby={this.state.selectedHobby}/>
                     </Col>
                     <Col>
-                        <SuggestedHobbies />
+                        <SuggestedHobbies switchHobby={this.switchHobby}/>
                     </Col>
 
                 </Row>
