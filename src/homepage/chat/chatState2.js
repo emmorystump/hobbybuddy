@@ -23,7 +23,7 @@ class ChatState2 extends Component {
             </div>);
         })
         return (
-        <div className="container">
+        <div className="chatContainer">
             <div className="chatTopRow">
                 Chat
                 <img className="chatPushdown" src={pushdown} onClick={() => stateChange(1, -1)} alt="Back" />
