@@ -15,6 +15,7 @@ class PostsWrapper extends Component {
             showPostDetail: -1,
             selectedHobby: this.props.selectedHobby,
             username: '',
+            likedPosts: []
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
@@ -68,23 +69,9 @@ class PostsWrapper extends Component {
     likePost(postId) {
         //like the post
         // var userId = this.state.userid;
-        // let database = firebase.database();
-        // database.ref('Hobbies/'+this.state.selectedHobby+"/Likes/").add({
-
-        //   }, (error) => {
-        //       if (error) {
-        //         alert("Due to server issues, submission failed! Please try again later.");
-        //       } else {
-        //         database.ref('Hobbies/'+this.state.selectedHobby+"/Posts").update({PostCount: newPostCount} , (updateError) => {
-        //             if (updateError) {
-        //                 alert("Due to server issues, submission failed! Please try again later.");
-        //             } else {
-        //                 alert("Sucessfully submitted a new post! Redirecting to homepage now...");
-        //                 self.props.history.push('/');
-        //             }
-        //         });
-        //       }
-        //   });
+        this.setState(prevState => ({
+            likedPosts: [...prevState.likedPosts, postId]
+        }));
     }
     
 
@@ -98,6 +85,7 @@ class PostsWrapper extends Component {
             posts = this.state.postsList.map((post, index) => {
                 var description = post.Description;
                 var id = post.PostId;
+                var liked = this.state.likedPosts.includes(id);
                 var author = post.Author;
                 if (id) {
                     return (
@@ -107,9 +95,13 @@ class PostsWrapper extends Component {
                                 {description}
                             </div>
                             <div className="rightAlign">
+                                {liked ?
+                                <button disabled="true">
+                                    Liked
+                                </button> :
                                 <button onClick={() => this.likePost(id)}>
                                     Like
-                                </button>
+                                </button>}
                                 <button onClick={() => this.stateChange(index)}>
                                     View Post/Comment
                                 </button>
@@ -120,7 +112,7 @@ class PostsWrapper extends Component {
             })  
         }
         else {
-            posts = <Post username={this.state.username} likePost={this.likePost} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
+            posts = <Post updatePosts={this.updatePosts} username={this.state.username} likePost={this.likePost} likedPosts={this.state.likedPosts} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
         }
         return (
             <div className="postsWrapper">

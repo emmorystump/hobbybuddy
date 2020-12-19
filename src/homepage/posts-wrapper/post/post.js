@@ -41,14 +41,15 @@ class Post extends Component {
         let database = firebase.database();
         let commentid = post.Comments ? post.Comments.length : 0;
         console.log('path:'+('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments/"+commentid));
-        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments/"+commentid).set({
+        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+postId+"/Comments/"+commentid).set({
             Author: username,
             Content: this.state.commentToAdd
             }, (error) => {
                 if (error) {
-                //alert("Due to server issues, submission failed! Please try again later.");
+                    console.log('comment add - error')
                 } else {
-                    console.log('success')
+                    console.log('comment add - success')
+                    this.props.updatePosts();
                 }
         });
     }
@@ -57,6 +58,7 @@ class Post extends Component {
         var post = this.props.postInfo;
         var description = post.Description;
         var id = post.PostId;
+        var liked = this.props.likedPosts.includes(id);
         var author = post.Author;
         var commentRendered;
         if (post.Comments) {
@@ -83,9 +85,13 @@ class Post extends Component {
                         {description}
                     </div>
                     <div className="rightAlign">
-                        <button onClick={() => this.props.likePost(id)}>
-                            Like
-                        </button>
+                            {liked ?
+                            <button disabled="true">
+                                Liked
+                            </button> :
+                            <button onClick={() => this.props.likePost(id)}>
+                                Like
+                            </button>}
                     </div>
                 </div>
                 <div className="commentsList">
