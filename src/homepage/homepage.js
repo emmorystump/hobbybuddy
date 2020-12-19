@@ -12,7 +12,7 @@ import 'firebase/auth';
 import './homepage.css';
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap';
-import Navbar from '../components/Navbar';
+import Navigationbar from '../components/Navbar';
 import Select from 'react-dropdown-select'
 
 const HobbySearchList = [
@@ -97,7 +97,7 @@ class Homepage extends Component {
         });
         return (
             <div>
-                <Navbar name={username} />
+                <Navigationbar name={username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>

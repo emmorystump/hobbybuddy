@@ -67,10 +67,11 @@ class SuggestedHobbies extends Component {
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row key={hobby}><Button variant="dark" className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
+            <Row key={hobby}><Button variant="light" className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
+                <h4>Suggested Hobbies</h4>
                 {hobbyButtonElements}
             </div>
         );

@@ -48,7 +48,7 @@ class UserHobbies extends Component {
     render() {
         const {selectedHobby, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><Button variant="dark" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
+            <Row><Button variant="light" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "hobby-sidebar">
