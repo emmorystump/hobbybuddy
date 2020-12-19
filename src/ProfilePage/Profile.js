@@ -35,7 +35,6 @@ class Profile extends Component {
                     })
                 });
             } else {
-              alert("Sign in first");
             }
         });
         

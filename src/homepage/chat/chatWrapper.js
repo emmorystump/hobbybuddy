@@ -37,7 +37,6 @@ class ChatWrapper extends Component {
                     }
                 });
             } else {
-              alert("Sign in first");
             }
         });
     }
@@ -142,7 +141,7 @@ class ChatWrapper extends Component {
                             targetid={chatlogs[curTargetIndex].TargetId} />;
         }
         return (
-            <div class="chatWrapper">
+            <div className="chatWrapper">
                 {chatState}
             </div>   
         );

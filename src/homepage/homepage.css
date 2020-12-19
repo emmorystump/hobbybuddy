@@ -14,19 +14,27 @@ body {
     padding-left: 30px;
     padding-right: 30px;
 }
-.requestHobbyButton {    
-    display: block;
-    text-decoration: none;
-    color: black;
-    padding: 5px;
-    width: fit-content;
-    background-color: lightgrey;
-    margin-left: 20px;
-    margin-top: 20px;
-    padding-left: 30px;
-    padding-right: 30px;
-}
+
 .nav-row {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.requestHobbyButton{
+    background-color: rgb(52, 208, 223);
+    width:100%;
+    height:46px;
+    border: none;
+    color: white;
+    padding: 6px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+}
+  .requestHobbyButton:hover {
+    background-color: rgb(39, 158, 194); /* Green */
+    color: white;
+  }
