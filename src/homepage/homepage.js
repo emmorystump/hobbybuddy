@@ -44,17 +44,20 @@ class Homepage extends Component {
     componentWillMount() {
         var self = this;
         var user = firebase.auth().currentUser;
-        console.log(user);
-        if (user) {
-          console.log("succeed");
-          console.log(user.email);
-          self.setState({
-            email: user.email,
-            uid: user.uid
+        firebase.auth().onAuthStateChanged((user) => {
+            console.log("succeed");
+            console.log(user.email);
+            console.log(user.displayName);
+            if (user) {
+                self.setState({
+                    email: user.email,
+                    uid: user.uid
+                  });
+            } else {
+              // User is signed out
+              // ...
+            }
           });
-        } else {
-        //   self.props.history.push('/signup');
-        }
     }
 
     logout() {
