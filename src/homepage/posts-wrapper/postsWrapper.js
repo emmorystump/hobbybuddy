@@ -18,7 +18,7 @@ class PostsWrapper extends Component {
         this.likePost = this.likePost.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         var self = this;
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
@@ -27,7 +27,6 @@ class PostsWrapper extends Component {
                 hobbyRef.once('value', (snapshot) =>{
                     const postObjects = snapshot.val();
                     console.log(postObjects);
-                    // const arr = Object.keys(postObjects).map(uid => Object.values(postObjects[uid]));
                     const arr = Object.values(postObjects);
                     console.log(arr);
                     self.setState({
