@@ -27,7 +27,6 @@ class Profile extends Component {
                 let userInfo = firebase.database().ref('Users/'+uid);
                 userInfo.on('value', (snapshot) =>{
                     let user =  snapshot.val();
-                    console.log(user.Hobbies);
                     self.setState({
                         location: user.Location,
                         username: user.Username,
@@ -43,19 +42,7 @@ class Profile extends Component {
 
 
     deleteHobby(hobbyKeys){
-        let currentHobbies = null
-        if(this.state.hobbies !== undefined){
-            currentHobbies = this.state.hobbies;
-        }
-
-        if(currentHobbies !== null) {
-            firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
-
-            currentHobbies.splice(hobbyKeys, 1);
-            // delete currentHobbies.hobbyKeys;
-            this.setState({hobbies: currentHobbies});
-            
-        }
+        firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
     }
     
     render() {
