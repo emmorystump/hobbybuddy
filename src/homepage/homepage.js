@@ -4,6 +4,7 @@ import PostsWrapper from './posts-wrapper/postsWrapper';
 import firebase from "firebase/app";
 import 'firebase/auth';
 import './homepage.css';
+import 'firebase/database';
 import { withRouter } from 'react-router-dom';
 import UserHobbies from './usersHobbies/usersHobbies'
 import SuggestedHobbies from './suggestedHobbies/suggestedHobbies'
@@ -72,9 +73,14 @@ class Homepage extends Component {
     }
 
     render() {
+        let username;
+        firebase.database().ref('Users/'+ this.state.uid).on("value", snapshot => {
+            let user =  snapshot.val();
+            username = user.Username;     
+        });
         return (
             <div>
-                <Navbar email={this.state.email} />
+                <Navbar name={username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>
