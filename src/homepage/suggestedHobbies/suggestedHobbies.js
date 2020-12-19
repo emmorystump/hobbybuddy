@@ -14,7 +14,8 @@ class SuggestedHobbies extends Component {
         super(props);
         this.state = {
             addedHobbies: [],
-            hobbyOptions: []
+            hobbyOptions: [],
+            switchHobby: this.props.switchHobby,
         }
     }
 
@@ -64,7 +65,7 @@ class SuggestedHobbies extends Component {
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><Link className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Link></Row>);
+            <Row><button onClick={() => this.state.switchHobby()} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
