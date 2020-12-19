@@ -20,7 +20,8 @@ class RequestHobbyForm extends Component {
     submitForm() {
         var self = this;
         const {title, selectedHobby, description} = this.state;
-        alert("Request Submitted")
+        alert("Request Submitted");
+        self.props.history.push('/');
     }
 
     render() {
@@ -35,14 +36,8 @@ class RequestHobbyForm extends Component {
                 </div>
                 <div className="inputArea">
                     <div className="inputWrapper">
-                        Hobby Title:
-                        <input className = "input" type = "text" value = {title} onChange = {(event) => this.setState({title: event.target.value })} />
-                    </div>
-                    <div className="inputWrapper">
                         Hobby:
-                        <select className = "input" onChange = {(event) => this.setState({selectedHobby: event.target.value })}>
-                            {hobbyOptionElements}
-                        </select>
+                        <input className = "input" type = "text" value = {title} onChange = {(event) => this.setState({title: event.target.value })} />
                     </div>
                     <div className="inputWrapper">
                         Description:

@@ -41,11 +41,28 @@ class Homepage extends Component {
         this.togglePopup = this.togglePopup.bind(this);
     }
     
-    togglePopup(text) {
+    togglePopup(text, adding) {
         this.setState({
           showPopup: !this.state.showPopup
         });
         this.setState({searchedHobby:text});
+        console.log("text")
+        if (adding) {
+            let database = firebase.database();
+            var hobbyIdRef = database.ref('Hobbies/'+text+"/HobbyId");
+            hobbyIdRef.once('value', (snapshot) =>{
+                let hobbyId = snapshot.val();
+                database.ref('Users/'+this.state.uid+"/Hobbies/").update({
+                    [hobbyId]: text
+                  }, (error) => {
+                      if (error) {
+                        alert("Due to server issues, submission failed! Please try again later.");
+                      } else {
+                          
+                      }
+                  });
+            });
+        }
       }
 
     setValues(text) {
@@ -53,7 +70,7 @@ class Homepage extends Component {
             return
         }
         var clickedHobby = text[0].label;
-        this.togglePopup(clickedHobby)
+        this.togglePopup(clickedHobby);
     }
 
     componentWillMount() {
@@ -120,8 +137,8 @@ class Popup extends React.Component {
         <div className='popup'>
           <div className='popup_inner'>
             <h5>Add {this.props.text}?</h5>
-          <button onClick={this.props.closePopup}>Yes</button>
-          <button onClick={this.props.closePopup}>Cancel</button>
+            <button onClick={() => this.props.closePopup(this.props.text, true)}>Yes</button>
+            <button onClick={() => this.props.closePopup(this.props.text, false)}>Cancel</button>
           </div>
         </div>
       );
