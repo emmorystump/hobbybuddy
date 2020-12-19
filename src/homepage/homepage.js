@@ -69,7 +69,7 @@ class Homepage extends Component {
                     username: user.displayName,
                   });
             } else {
-                self.props.history.push('/signup');
+                self.props.history.push('/login');
             }
           });
     }
