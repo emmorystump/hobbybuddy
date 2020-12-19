@@ -93,7 +93,7 @@ class Post extends Component {
                         <textarea className = "input" type = "text" onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
                     </div>
                     <div className="rightAlign">
-                        <button className="commentButton" onClick={this.addComment(id)}>Submit</button>
+                        <button className="commentButton" onClick={() => this.addComment(id)}>Submit</button>
                     </div>
                     
                 </div>
