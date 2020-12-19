@@ -10,8 +10,11 @@ class Post extends Component {
         super(props);
         this.state = {
             commentToAdd: '',
-            userid: ''
+            userid: '',
+            username: this.props.username,
+            selectedHobby: this.props.selectedHobby,
         };
+        this.addComment = this.addComment.bind(this);
     }
 
     componentDidMount() {
@@ -27,32 +30,49 @@ class Post extends Component {
         });
     }
 
-    addComment() {
-        //like the post
-        var userId = this.state.userid;
+    addComment(id) {
         //add comment to post 
         //clear state "commentToAdd"
         //reload render
+        var username = this.state.username;
+        var postId = id;
+        var post = this.props.postInfo;
+        console.log("entered comment submit")
+        let database = firebase.database();
+        let commentid = post.Comments ? post.Comments.length : 0;
+        console.log('path:'+('Hobbies/'+this.state.selectedHobby+"/Posts/"+id+"/Comments/"+commentid));
+        database.ref('Hobbies/'+this.state.selectedHobby+"/Posts/"+postId+"/Comments/"+commentid).set({
+            Author: username,
+            Content: this.state.commentToAdd
+            }, (error) => {
+                if (error) {
+                    console.log('comment add - error')
+                } else {
+                    console.log('comment add - success')
+                    this.props.updatePosts();
+                }
+        });
     }
     
     render() {
         var post = this.props.postInfo;
         var description = post.Description;
         var id = post.PostId;
+        var liked = this.props.likedPosts.includes(id);
         var author = post.Author;
         var commentRendered;
         if (post.Comments) {
             var comments = post.Comments;
             commentRendered = comments.map((comment, index) => {
-                var author = comment.Author;
-                var content = comment.Content;
+                var commentauthor = comment.Author;
+                var commentcontent = comment.Content;
                 return (
                     <div className="singleComment">
                         <div className="leftAlign">
-                            {content}
+                            {commentcontent}
                         </div>
                         <div className="rightAlign">
-                            <text className="postAuthor">{author}</text>
+                            <text className="postAuthor">{commentauthor}</text>
                         </div>
                     </div>); 
             })
@@ -65,9 +85,13 @@ class Post extends Component {
                         {description}
                     </div>
                     <div className="rightAlign">
-                        <button onClick={() => this.props.likePost(id)}>
-                            Like
-                        </button>
+                            {liked ?
+                            <button disabled="true">
+                                Liked
+                            </button> :
+                            <button onClick={() => this.props.likePost(id)}>
+                                Like
+                            </button>}
                     </div>
                 </div>
                 <div className="commentsList">
@@ -79,7 +103,7 @@ class Post extends Component {
                         <textarea className = "input" type = "text" onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
                     </div>
                     <div className="rightAlign">
-                        <button className="commentButton" onClick={this.addComment}>Submit</button>
+                        <button className="commentButton" onClick={() => this.addComment(id)}>Submit</button>
                     </div>
                     
                 </div>

@@ -21,6 +21,9 @@
 }
 
 .hobbies-container{
+    padding-top: 12px;
+    margin: 0 auto;
+    width: 78%;
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -42,4 +45,23 @@
     background-color: #ED8585;
     margin-top: 30px;
 }
+
+.deleteBtn{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: red;
+    margin-top: -10px;
+    margin-left: 180px;
+    cursor: pointer;
+}
+
+.box-title{
+    font-weight: 600;
+    /* text-transform: ; */
+    text-align: center;
+    margin-top: 25px;
+}
+
 
