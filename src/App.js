@@ -1,6 +1,7 @@
 import './App.css';
 import Homepage from './homepage/homepage';
 import Profile from './ProfilePage/Profile';
+import Login from './LoginPage/Login';
 import CreatePostForm from './createPostPage/createPostForm';
 import Post from './homepage/posts-wrapper/post/post'
 import firebase from "firebase/app";
@@ -24,6 +25,7 @@ class App extends Component {
 
   }
 
+  // https://stackoverflow.com/questions/56828703/only-display-component-for-some-routes-react 
   render() {
     return (
         <Router>
@@ -38,6 +40,7 @@ class App extends Component {
             <Route exact path="/">
               <Homepage />
             </Route>
+            <Route path="/login" exact component={Login}/>
             {/* <Route exact path="/postdetail">
               <Homepage />
             </Route> */}

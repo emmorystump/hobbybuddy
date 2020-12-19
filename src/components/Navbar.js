@@ -14,6 +14,7 @@ const Navbar = ({email}) => {
                 </div>
 
                 <div className="navbar-right"></div>
+                    <Link to="/login"> Sign Out </Link>
             </nav>
         </div>
     )

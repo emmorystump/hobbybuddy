@@ -1,0 +1,45 @@
+.profile-banner{
+    display: flex;
+    height: 75%;
+    width: 75%;
+    border-bottom: 1px solid rgb(203, 203, 203);
+    background-color: #f6f6f6;
+}
+
+.profile-banner .title {
+    padding-top: 50px;
+    padding-left: 20px;
+}
+
+.profile-banner .user-image{
+    background-color: grey;
+    height: 100px;
+    width: 100px;
+    margin-left: 5%;
+    margin-top: 38px;
+    border-radius: 50%;
+}
+
+.hobbies-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.hobby-box h1{
+    font-weight: 400;
+    font-size: 28px;
+    color: white;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.hobby-box{
+    width: 200px;
+    height: 72px;  
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #ED8585;
+    margin-top: 30px;
+}
+
