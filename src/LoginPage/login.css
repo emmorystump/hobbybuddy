@@ -1,11 +1,14 @@
-#hobee {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
+
+
+.loginOverlay{
+    background-color:#18A2B8;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
 }
-
-
 .main {
     background-color: #FFFFFF;
     width: 400px;
@@ -13,6 +16,13 @@
     margin: 7em auto;
     border-radius: 1.5em;
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+}
+
+#hobee {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
 }
 
 .title{
