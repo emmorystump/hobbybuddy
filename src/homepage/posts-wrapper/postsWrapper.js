@@ -117,8 +117,8 @@ class PostsWrapper extends Component {
             <div className="postsWrapper">
                 <div id="wrapperHeader">
                     <div className="centerText">
-                        <strong>{this.state.selectedHobby}</strong><br></br>
-                        <i>Recommended for you:</i>
+                        <div className="hobbyTitle">{this.state.selectedHobby}</div>
+                        <div>Recommended for you:</div>
                     </div>
                     {this.state.showPostDetail === -1 && 
                         <div className="rightAlign">
