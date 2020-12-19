@@ -6,6 +6,7 @@ import 'firebase/database';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import './usersHobbies.css'
 import {Row} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -47,7 +48,7 @@ class UserHobbies extends Component {
     render() {
         const {selectedHobby, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><button onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</button></Row>);
+            <Row><Button variant="light" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "hobby-sidebar">

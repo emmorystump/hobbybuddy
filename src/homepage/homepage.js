@@ -12,7 +12,7 @@ import 'firebase/auth';
 import './homepage.css';
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap';
-import Navbar from '../components/Navbar';
+import Navigationbar from '../components/Navbar';
 import Select from 'react-dropdown-select'
 
 const HobbySearchList = [
@@ -34,12 +34,26 @@ class Homepage extends Component {
             email: '',
             uid: '',
             username: '',
+            showPopup: false,
+            searchedHobby: 'Biking',
         };
         this.switchHobby = this.switchHobby.bind(this);
+        this.togglePopup = this.togglePopup.bind(this);
     }
+    
+    togglePopup(text) {
+        this.setState({
+          showPopup: !this.state.showPopup
+        });
+        this.setState({searchedHobby:text});
+      }
 
     setValues(text) {
-        alert(text)
+        if (text.length == 0){
+            return
+        }
+        var clickedHobby = text[0].label;
+        this.togglePopup(clickedHobby)
     }
 
     componentWillMount() {
@@ -69,12 +83,20 @@ class Homepage extends Component {
     render() {
         return (
             <div>
-                <Navbar name={this.state.username} />
+                <Navigationbar name={this.state.username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>
                     <Col xs={2}>
                         <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                        {this.state.showPopup ? 
+                            <Popup
+                                text={this.state.searchedHobby}
+                                closePopup={this.togglePopup.bind(this)}
+                            />
+                            : null
+                            }
+                        <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
                         <UserHobbies switchHobby={this.switchHobby}/>
                         <ChatWrapper userid={this.state.uid}/>
                     </Col>
@@ -90,5 +112,22 @@ class Homepage extends Component {
         );
     }
 }
+
+
+class Popup extends React.Component {
+    render() {
+      return (
+        <div className='popup'>
+          <div className='popup_inner'>
+            <h5>Add {this.props.text}?</h5>
+          <button onClick={this.props.closePopup}>Yes</button>
+          <button onClick={this.props.closePopup}>Cancel</button>
+          </div>
+        </div>
+      );
+    }
+  }
+
+
 
 export default withRouter(Homepage);

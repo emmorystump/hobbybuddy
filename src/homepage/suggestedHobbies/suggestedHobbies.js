@@ -7,6 +7,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import './suggestedHobbies.css'
 import {Row} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from 'react-bootstrap'
 
 
 class SuggestedHobbies extends Component {
@@ -66,10 +67,11 @@ class SuggestedHobbies extends Component {
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row key={hobby}><button className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</button></Row>);
+            <Row key={hobby}><Button variant="light" className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
+                <h4>Suggested Hobbies</h4>
                 {hobbyButtonElements}
             </div>
         );
