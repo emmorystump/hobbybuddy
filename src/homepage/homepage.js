@@ -12,6 +12,17 @@ import './homepage.css';
 import {Row} from 'react-bootstrap'
 import {Col} from 'react-bootstrap';
 import Navbar from '../components/Navbar';
+import Select from 'react-dropdown-select'
+
+const HobbySearchList = [
+    { label: "Running", value: 355 },
+    { label: "Biking", value: 54 },
+    { label: "Painting", value: 43 },
+    { label: "Impressionism Painting", value: 61 },
+    { label: "Knitting", value: 965 },
+    { label: "Hiking", value: 46 },
+    { label: "Board Games", value: 58 }
+  ];
 
 
 class Homepage extends Component {
@@ -23,6 +34,10 @@ class Homepage extends Component {
             uid: ''
         };
         this.switchHobby = this.switchHobby.bind(this);
+    }
+
+    setValues(text) {
+        alert(text)
     }
 
     componentWillMount() {
@@ -71,6 +86,7 @@ class Homepage extends Component {
                 <ChatWrapper /> */}
                 <Row>
                     <Col xs={2}>
+                        <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
                         <UserHobbies switchHobby={this.switchHobby}/>
                         <ChatWrapper />
                     </Col>
