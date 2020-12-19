@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import { Component } from 'react';
 import SignupWrapper from './signup/signupWrapper';
+import RequestHobbyForm from './requestNewHobbyPage/requestHobbyForm';
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,9 @@ class App extends Component {
             <Route exact path="/profile" component={Profile}></Route>
             <Route exact path="/createpost">
               <CreatePostForm />
+            </Route>
+            <Route exact path="/requestHobby">
+              <RequestHobbyForm />
             </Route>
             <Route exact path="/signup">
               <SignupWrapper />
