@@ -15,7 +15,8 @@ class UserHobbies extends Component {
         console.log("in here!");
         this.state = {
             selectedHobby: '',
-            hobbyOptions: []
+            hobbyOptions: [],
+            switchHobby: this.props.switchHobby,
         }
     }
 
@@ -29,12 +30,15 @@ class UserHobbies extends Component {
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
-                    if (hobbies.length) {
-                        self.setState({
-                            selectedHobby: hobbies[0],
-                            hobbyOptions: hobbies,
-                        });
-                    } 
+                    if (hobbies) {
+                        if (hobbies.length) {
+                            self.setState({
+                                selectedHobby: hobbies[0],
+                                hobbyOptions: hobbies,
+                            });
+                        } 
+                    }
+
                 });
             } 
         });
@@ -43,7 +47,7 @@ class UserHobbies extends Component {
     render() {
         const {selectedHobby, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><Link className = "hobby-option-button" to="/" id={hobby}>{hobby}</Link></Row>);
+            <Row><button onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</button></Row>);
         
         return (
             <div className = "hobby-sidebar">

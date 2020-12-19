@@ -22,6 +22,7 @@ class Homepage extends Component {
             email: '',
             uid: ''
         };
+        this.switchHobby = this.switchHobby.bind(this);
     }
 
     componentWillMount() {
@@ -49,7 +50,12 @@ class Homepage extends Component {
           
     }
 
-    
+    switchHobby(hobby) {
+        this.setState({
+            selectedHobby: hobby
+        });
+    }
+
     render() {
         var postState;
         // if (this.props.postState) {
@@ -65,7 +71,7 @@ class Homepage extends Component {
                 <ChatWrapper /> */}
                 <Row>
                     <Col xs={2}>
-                        <UserHobbies />
+                        <UserHobbies switchHobby={this.switchHobby}/>
                         <ChatWrapper />
                     </Col>
                     <Col xs={8}>

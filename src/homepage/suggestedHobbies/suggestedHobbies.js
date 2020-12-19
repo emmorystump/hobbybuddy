@@ -15,7 +15,6 @@ class SuggestedHobbies extends Component {
         this.state = {
             addedHobbies: [],
             hobbyOptions: [],
-            switchHobby: this.props.switchHobby,
         }
     }
 
@@ -28,11 +27,14 @@ class SuggestedHobbies extends Component {
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
-                    if (hobbies.length) {
-                        self.setState({
-                            addedHobbies: hobbies,
-                        });
-                    } 
+                    if (hobbies) {
+                        if (hobbies.length) {
+                            self.setState({
+                                addedHobbies: hobbies,
+                            });
+                        } 
+                    }
+
                 });
             }
 
@@ -65,7 +67,7 @@ class SuggestedHobbies extends Component {
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><button onClick={() => this.state.switchHobby()} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</button></Row>);
+            <Row key={hobby}><button className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">
