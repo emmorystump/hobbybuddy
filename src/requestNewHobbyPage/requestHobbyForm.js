@@ -31,11 +31,11 @@ class RequestHobbyForm extends Component {
         return (
             <div className = "content">
                 <div className="newPostLabel">
-                    Add New Post
+                    Request New Hobby
                 </div>
                 <div className="inputArea">
                     <div className="inputWrapper">
-                        Title:
+                        Hobby Title:
                         <input className = "input" type = "text" value = {title} onChange = {(event) => this.setState({title: event.target.value })} />
                     </div>
                     <div className="inputWrapper">
