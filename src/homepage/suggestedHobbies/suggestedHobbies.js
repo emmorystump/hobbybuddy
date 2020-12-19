@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-// import './suggestedHobbies.css'
+import './suggestedHobbies.css'
 import {Row} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -13,6 +13,7 @@ class SuggestedHobbies extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            addedHobbies: [],
             hobbyOptions: []
         }
     }
@@ -26,21 +27,42 @@ class SuggestedHobbies extends Component {
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
-                    console.log(hobbies)
                     if (hobbies.length) {
                         self.setState({
-                            hobbyOptions: hobbies,
+                            addedHobbies: hobbies,
                         });
                     } 
                 });
-            } else {
-              alert("Sign in first");
+            }
+
+            if (user) {
+                var hobbiesInfo = firebase.database().ref("Hobbies");
+                hobbiesInfo.on('value', (snapshot) => {
+                    console.log("hobby Info")
+                    const hobbies = snapshot.val();
+
+                    var suggested = [];
+                    for(let i = 0; i < self.state.addedHobbies.length; i++) {
+                        var key = self.state.addedHobbies[i];
+                        var hobbyInfo = hobbies[key];
+                        var related = hobbyInfo["Related Hobbies"];
+                        console.log(related)
+                        for(var j in related) {
+                            suggested.push(related[j])
+                        }
+                    }
+
+                    self.setState({
+                        hobbyOptions: suggested,
+                    });
+                    
+                });
             }
         });
     }
 
     render() {
-        const {hobbyOptions} = this.state;
+        const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
             <Row><Link className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Link></Row>);
         
