@@ -6,6 +6,7 @@ import 'firebase/database';
 import './profile.css';
 import ChatWrapper from '../homepage/chat/chatWrapper';
 import Navbar from '../components/Navbar';
+import { withRouter } from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
@@ -94,4 +95,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default withRouter(Profile);
