@@ -25,6 +25,7 @@ class UserHobbies extends Component {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 let userid = user.uid;
+                console.log("here:"+userid);
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();

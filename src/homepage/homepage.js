@@ -61,13 +61,8 @@ class Homepage extends Component {
         return (
             <div>
                 <Navbar email={this.state.email} />
-                <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
-                <ChatWrapper />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
-                <button onClick={this.logout}>
-                    logout
-                </button>
                 <Row>
                     <Col xs={2}>
                         <UserHobbies />
