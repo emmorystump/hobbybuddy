@@ -32,13 +32,24 @@ class Homepage extends Component {
         this.state = {
             selectedHobby: 'Biking',
             email: '',
-            uid: ''
+            uid: '',
+            showPopup: false,
+            searchedHobby: 'Biking',
         };
         this.switchHobby = this.switchHobby.bind(this);
+        this.togglePopup = this.togglePopup.bind(this);
     }
+    
+    togglePopup(text) {
+        this.setState({
+          showPopup: !this.state.showPopup
+        });
+        this.setState({searchedHobby:text});
+      }
 
     setValues(text) {
-        alert(text)
+        var clickedHobby = text[0].label;
+        this.togglePopup(clickedHobby)
     }
 
     componentWillMount() {
@@ -89,6 +100,13 @@ class Homepage extends Component {
                 <Row>
                     <Col xs={2}>
                         <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                        {this.state.showPopup ? 
+                            <Popup
+                                text={this.state.searchedHobby}
+                                closePopup={this.togglePopup.bind(this)}
+                            />
+                            : null
+                            }
                         <UserHobbies switchHobby={this.switchHobby}/>
                         <ChatWrapper />
                     </Col>
@@ -104,5 +122,21 @@ class Homepage extends Component {
         );
     }
 }
+
+
+class Popup extends React.Component {
+    render() {
+      return (
+        <div className='popup'>
+          <div className='popup_inner'>
+            <h1>{this.props.text}</h1>
+          <button onClick={this.props.closePopup}>Cancel1</button>
+          </div>
+        </div>
+      );
+    }
+  }
+
+
 
 export default withRouter(Homepage);
