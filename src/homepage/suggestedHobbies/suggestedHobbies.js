@@ -26,6 +26,7 @@ class SuggestedHobbies extends Component {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
+                console.log(user.uid);
                 let userid = user.uid;
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
@@ -60,12 +61,13 @@ class SuggestedHobbies extends Component {
                         }
     
                         self.setState({
-                            hobbyOptions: suggested,
-                            uid: user.id
-    
+                            hobbyOptions: suggested    
                         });
                     }
 
+                    self.setState({
+                        hobbyOptions: suggested,
+                    });
                     
                 });
             }
@@ -85,10 +87,10 @@ class SuggestedHobbies extends Component {
 
     addHobby(hobby) {
        var newHobbyList = this.state.addedHobbies;
-       console.log(newHobbyList);
+       console.log("originl list" + newHobbyList);
 
        newHobbyList.push(hobby);
-       console.log(newHobbyList);
+       console.log("added" + newHobbyList);
         
        this.setState({
             addedHobbies: newHobbyList
@@ -97,24 +99,25 @@ class SuggestedHobbies extends Component {
         this.removeSuggestedHobby(hobby);
 
         var newKey = newHobbyList.length;
-        console.log(newKey);
         // add this hobby to the database
 
+        console.log(this.state.uid);
+
         let database = firebase.database();
-        var userHobbies = database.ref('Users/'+this.state.uid+"/Hobbies");
-        console.log(userHobbies)
-        var newUserHobby = userHobbies.push();
-        console.log(newUserHobby);
-        // newUserHobby.set({hobby})
-        userHobbies.on('value', (snapshot) =>{
-            database.ref('Users/'+this.state.uid+"/Hobbies").set({
-                newKey: hobby
+        var hobbyIdRef = database.ref('Hobbies/'+hobby+"/HobbyId");
+        console.log(hobbyIdRef);
+        hobbyIdRef.once('value', (snapshot) => {
+            let hobbyId = snapshot.val();
+            database.ref('Users/'+this.state.uid+"/Hobbies/").update({
+                [hobbyId]: hobby
                 }, (error) => {
-                    console.log("error");
-
+                    if (error) {
+                        console.log('hobby add - error')
+                    } else {
+                        console.log('hobby add - success')
+                    }
             });
-        });
-
+        })
         // call switch hobby
         this.state.switchHobby(hobby)
     }
