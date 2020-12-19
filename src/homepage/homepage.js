@@ -45,16 +45,16 @@ class Homepage extends Component {
         var self = this;
         var user = firebase.auth().currentUser;
         console.log(user);
-        if (user) {
-          console.log("succeed");
-          console.log(user.email);
-          self.setState({
-            email: user.email,
-            uid: user.uid
-          });
-        } else {
-          self.props.history.push('/signup');
-        }
+        // if (user) {
+        //   console.log("succeed");
+        //   console.log(user.email);
+        //   self.setState({
+        //     email: user.email,
+        //     uid: user.uid
+        //   });
+        // } else {
+        //   self.props.history.push('/signup');
+        // }
     }
 
     logout() {

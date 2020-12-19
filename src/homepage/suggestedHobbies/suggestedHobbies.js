@@ -43,7 +43,6 @@ class SuggestedHobbies extends Component {
                 hobbiesInfo.on('value', (snapshot) => {
                     console.log("hobby Info")
                     const hobbies = snapshot.val();
-
                     var suggested = [];
                     for(let i = 0; i < self.state.addedHobbies.length; i++) {
                         var key = self.state.addedHobbies[i];
