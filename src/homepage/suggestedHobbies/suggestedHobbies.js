@@ -53,11 +53,15 @@ class SuggestedHobbies extends Component {
                         for(let i = 0; i < self.state.addedHobbies.length; i++) {
                             var key = self.state.addedHobbies[i];
                             var hobbyInfo = hobbies[key];
-                            var related = hobbyInfo["Related Hobbies"];
-                            console.log(related)
-                            for(var j in related) {
-                                if(self.state.addedHobbies.indexOf(related[j]) == -1) {
-                                    suggested.push(related[j])
+                                if(hobbyInfo != undefined) {
+                                // if(hobbyInfo) {
+                                console.log(hobbyInfo);
+                                var related = hobbyInfo["Related Hobbies"];
+                                console.log(related)
+                                for(var j in related) {
+                                    if(self.state.addedHobbies.indexOf(related[j]) == -1) {
+                                        suggested.push(related[j])
+                                    }
                                 }
                             }
                         }
