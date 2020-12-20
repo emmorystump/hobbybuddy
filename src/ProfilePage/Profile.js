@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
+import PageLoader from '../components/PageLoader';
+import ProfileDetails from './ProfileDetalis';
+import { withRouter } from 'react-router-dom';
 import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
-
 import './profile.css';
-import Chat from '../homepage/chat/chatWrapper';
-import Navbar from '../components/Navbar';
-import { withRouter } from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            location: "",
             username: "",
             hobbies: [],
             uid: ""
@@ -29,10 +27,10 @@ class Profile extends Component {
                 userInfo.on('value', (snapshot) =>{
                     let user =  snapshot.val();
                     self.setState({
-                        location: user.Location,
                         username: user.Username,
                         hobbies: user.Hobbies,
-                        uid: uid
+                        uid: uid,
+                        loading: true
                     })
                 });
             } else {
@@ -41,58 +39,18 @@ class Profile extends Component {
         });
     }
 
-
-    deleteHobby(hobbyKeys){
-        firebase.database().ref('Users/'+ this.state.uid + '/Hobbies/' + hobbyKeys).remove();
-    }
-    
     render() {
-        let listOfHobbies;
-        let hobbyKeys = null;
-        if(this.state.hobbies !== undefined){
-            hobbyKeys = Object.keys(this.state.hobbies);
-        }
-        
-        if (hobbyKeys != null && hobbyKeys.length > 0) {
-            listOfHobbies = (
-                <div>
-                    <h3 className="box-title">Your hobbies</h3>
-                    <div className="hobbies-container">
-
-                        {hobbyKeys.map((hobbyKeys, index) =>
-                            <div className="hobby-box" key={index}>
-                                <div className="deleteBtn" onClick={() => this.deleteHobby(hobbyKeys)}>
-                                    <svg height="30" width="30"><rect y="12" x="5" fill="white" width="20" height="5" ></rect> </svg>
-                                </div>
-                                <h1>{this.state.hobbies[hobbyKeys]}</h1>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )
-        } else {
-            listOfHobbies = (
-                <div className="hobbies-container">
-                    <h2 className="box-title">Loading Hobbies...</h2>
-                </div>
-            )
-        }
+        let allPage;
+        this.state.loading ? (
+            allPage = <ProfileDetails username={this.state.username} hobbies={this.state.hobbies}  uid={this.state.uid}/> 
+        ) : (
+            allPage = <PageLoader />
+        )
 
         return (
             <div>
-                <Navbar name={this.state.username} />
-                
-                <div className="profile-banner">
-                    <div className="user-image"></div>
-
-                    <div className="profile-title" >
-                        <h1>{this.state.username}</h1>
-                        <p>Some description here that is now static.</p>
-                    </div>
-                </div>
-                <Chat />
-                {listOfHobbies}
-            </div>   
+                {allPage}
+            </div>
         );
     }
 }
