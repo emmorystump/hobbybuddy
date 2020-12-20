@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/hobbybuddy/static/css/main.3d3eece4.chunk.css",
-    "main.js": "/hobbybuddy/static/js/main.c7259054.chunk.js",
-    "main.js.map": "/hobbybuddy/static/js/main.c7259054.chunk.js.map",
+    "main.css": "/hobbybuddy/static/css/main.11c303f5.chunk.css",
+    "main.js": "/hobbybuddy/static/js/main.3b3cb816.chunk.js",
+    "main.js.map": "/hobbybuddy/static/js/main.3b3cb816.chunk.js.map",
     "runtime-main.js": "/hobbybuddy/static/js/runtime-main.1694d19f.js",
     "runtime-main.js.map": "/hobbybuddy/static/js/runtime-main.1694d19f.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/hobbybuddy/static/css/2.20aa2d7b.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.6b74eebf.chunk.js.map": "/hobbybuddy/static/js/3.6b74eebf.chunk.js.map",
     "index.html": "/hobbybuddy/index.html",
     "static/css/2.20aa2d7b.chunk.css.map": "/hobbybuddy/static/css/2.20aa2d7b.chunk.css.map",
-    "static/css/main.3d3eece4.chunk.css.map": "/hobbybuddy/static/css/main.3d3eece4.chunk.css.map",
+    "static/css/main.11c303f5.chunk.css.map": "/hobbybuddy/static/css/main.11c303f5.chunk.css.map",
     "static/js/2.0cb2d769.chunk.js.LICENSE.txt": "/hobbybuddy/static/js/2.0cb2d769.chunk.js.LICENSE.txt",
     "static/media/HoBee.136b6b4c.png": "/hobbybuddy/static/media/HoBee.136b6b4c.png",
     "static/media/back.c8b3bf3f.jpg": "/hobbybuddy/static/media/back.c8b3bf3f.jpg"
@@ -21,7 +21,7 @@
     "static/js/runtime-main.1694d19f.js",
     "static/css/2.20aa2d7b.chunk.css",
     "static/js/2.0cb2d769.chunk.js",
-    "static/css/main.3d3eece4.chunk.css",
-    "static/js/main.c7259054.chunk.js"
+    "static/css/main.11c303f5.chunk.css",
+    "static/js/main.3b3cb816.chunk.js"
   ]
 }
