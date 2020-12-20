@@ -1,8 +1,43 @@
 .hobby-sidebar {
-    padding: 10px 24px; /* Some padding */
+    padding: 10px 10px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
+    width: fit-content;
 }
 
-.hobby-option-button {
-    margin: 10px;
+.hobby-option-button-unselected {
+    border: none;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid black;
+    width: 200px;
+}
+
+.hobby-option-button-selected {
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: 2px solid black;
+    width: 200px;
+}
+
+.manageHobbyLink {
+    /* display: block;
+    text-decoration: none;
+    
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+    background-color: orange; */
+    /* color: white; */
+    margin-top: 10px;
+}
+
+.manageHobbyLink:hover {
+    /* color: white; */
+}
+
+.manageHobbyContainer {
+    width: 200px;
+    text-align: center;
 }

@@ -79,6 +79,10 @@ class SuggestedHobbies extends Component {
       }
 
     addHobby(hobby) {
+       // eslint-disable-next-line no-restricted-globals
+       if (!confirm("Adding "+hobby+"?")) {
+            return;
+       }
        var newHobbyList = this.state.addedHobbies;
 
        newHobbyList.push(hobby);
@@ -114,7 +118,7 @@ class SuggestedHobbies extends Component {
     render() {
         const {addedHobbies, hobbyOptions} = this.state;
         const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row key={hobby}><Button variant="light" onClick={() => this.addHobby(hobby)} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
+            <Row key={hobby}><Button variant="primary" onClick={() => this.addHobby(hobby)} className = "hobby-suggested-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "suggested-hobby-sidebar">

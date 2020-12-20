@@ -73,7 +73,7 @@ class Profile extends Component {
         } else {
             listOfHobbies = (
                 <div className="hobbies-container">
-                    <h2 className="box-title">You don't have any hobbies.</h2>
+                    <h2 className="box-title">Loading Hobbies...</h2>
                 </div>
             )
         }

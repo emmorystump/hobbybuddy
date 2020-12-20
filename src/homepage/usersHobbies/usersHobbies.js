@@ -18,6 +18,7 @@ class UserHobbies extends Component {
             hobbyOptions: [],
             switchHobby: this.props.switchHobby,
         }
+        this.changeSelectedHobby = this.changeSelectedHobby.bind(this);
     }
 
     componentDidMount() {
@@ -41,16 +42,42 @@ class UserHobbies extends Component {
         });
     }
 
+    changeSelectedHobby(hobby) {
+        this.setState({
+            selectedHobby: hobby,
+        });
+        this.state.switchHobby(hobby);
+    }
+
     render() {
-        const hobbyButtonElements = this.state.hobbyOptions.map(hobby => 
-            <Row key={hobby}><Button variant="light" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
+        const hobbyButtonElements = this.state.hobbyOptions.map(hobby => {
+            let hobbybutton;
+            if (hobby === this.state.selectedHobby) {
+                hobbybutton = (<button 
+                    onClick={() => this.changeSelectedHobby(hobby)} 
+                    className = "hobby-option-button-selected" 
+                    id={hobby}>{hobby}</button>);
+            } else {
+                hobbybutton = (<button 
+                    onClick={() => this.changeSelectedHobby(hobby)} 
+                    className = "hobby-option-button-unselected" 
+                    id={hobby}>{hobby}</button>);
+            }
+            return (<div key={hobby}>
+                {hobbybutton}
+            </div>);
+        });
         
         return (
             <div className = "hobby-sidebar">
+                <div className = "hobby-sidebar-label">Select hobby to view:</div>
                 {hobbyButtonElements}
+                <div className="manageHobbyContainer">
+                    <Button variant="warning" className="manageHobbyLink" onClick={() => {this.props.history.push('/profile')}}>Manage Hobbies</Button>
+                </div>
             </div>
         );
     }
 }
 
-export default UserHobbies;
+export default withRouter(UserHobbies);

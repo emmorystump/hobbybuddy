@@ -19,10 +19,7 @@ const HobbySearchList = [
     { label: "Running", value: 355 },
     { label: "Biking", value: 54 },
     { label: "Painting", value: 43 },
-    { label: "Impressionism Painting", value: 61 },
-    { label: "Knitting", value: 965 },
-    { label: "Hiking", value: 46 },
-    { label: "Board Games", value: 58 }
+    { label: "Carving", value: 61 },
   ];
 
 
@@ -36,6 +33,7 @@ class Homepage extends Component {
             username: '',
             showPopup: false,
             searchedHobby: 'Biking',
+            userHobbies: [],
         };
         this.switchHobby = this.switchHobby.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
@@ -66,10 +64,13 @@ class Homepage extends Component {
       }
 
     setValues(text) {
-        if (text.length == 0){
+        if (text.length === 0){
             return
         }
         var clickedHobby = text[0].label;
+        if (this.state.userHobbies.indexOf(clickedHobby) > -1) {
+            return;
+        }
         this.togglePopup(clickedHobby);
     }
 
@@ -83,6 +84,15 @@ class Homepage extends Component {
                     email: user.email,
                     uid: user.uid,
                     username: user.displayName,
+                  });
+                  var userHobbies = firebase.database().ref('Users/'+user.uid+"/Hobbies");
+                  userHobbies.on('value', (snapshot) =>{
+                      const hobbies = snapshot.val();
+                      if (hobbies) {
+                          self.setState({
+                              userHobbies: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])
+                          });
+                      }
                   });
             } else {
                 self.props.history.push('/login');
@@ -104,15 +114,17 @@ class Homepage extends Component {
                 <ChatWrapper /> */}
                 <Row>
                     <Col xs={2}>
-                        <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
-                        {this.state.showPopup ? 
-                            <Popup
-                                text={this.state.searchedHobby}
-                                closePopup={this.togglePopup.bind(this)}
-                            />
-                            : null
-                            }
-                        <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
+                        <div className = 'searchHobbyWrapper'>
+                            <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                            {this.state.showPopup ? 
+                                <Popup
+                                    text={this.state.searchedHobby}
+                                    closePopup={this.togglePopup.bind(this)}
+                                />
+                                : null
+                                }
+                            <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
+                        </div>
                         <UserHobbies switchHobby={this.switchHobby}/>
                     </Col>
                     <Col xs={8}>

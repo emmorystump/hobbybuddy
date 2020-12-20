@@ -34,7 +34,13 @@ body {
     border-radius: 8px;
     transition-duration: 0.4s;
 }
-  .requestHobbyButton:hover {
+
+.requestHobbyButton:hover {
     background-color: rgb(92, 92, 92); /* Green */
     color: white;
-  }
+}
+
+.searchHobbyWrapper {
+    padding: 10px 10px;
+    width: fit-content;
+}

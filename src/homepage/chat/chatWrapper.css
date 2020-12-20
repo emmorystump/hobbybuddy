@@ -1,6 +1,6 @@
 .chatWrapper {
     position: fixed;
-    bottom: 50px;
-    left: 20px;
+    bottom: 0px;
+    right: 10px;
     min-width: 200px;
 }
