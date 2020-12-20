@@ -100,22 +100,22 @@ class PostsWrapper extends Component {
                 if (id) {
                     return (
                         <div key={id} className="postbox">
-                            <div>
+                            <div className="descriptionBox">
                                 <div className="postAuthor">{author}</div>
                                 {description}
                             </div>
                             <div className="rightAlign">
                                 {liked ?
-                                <button disabled="true">
+                                <button className="smallButton" disabled="true">
                                     Liked
                                 </button> :
-                                <button onClick={() => this.likePost(id)}>
+                                <button className="smallButton" onClick={() => this.likePost(id)}>
                                     Like
                                 </button>}
-                                <button onClick={() => this.stateChange(index)}>
+                                <button className="smallButton" onClick={() => this.stateChange(index)}>
                                     Comment
                                 </button>
-                                <button onClick={() => this.state.messageAuthor(author)}>
+                                <button className="smallButton" onClick={() => this.state.messageAuthor(author)}>
                                     Message Author
                                 </button>
                             </div>
@@ -151,7 +151,7 @@ class PostsWrapper extends Component {
                     </div>
                     {this.state.showPostDetail !== -1 &&
                         <div className="leftAlign">    
-                            <button className="backButton" onClick={() => this.stateChange(-1)}>Back</button>
+                            <button className="backPostButton" onClick={() => this.stateChange(-1)}>Back</button>
                         </div>
                     }
                 </div>

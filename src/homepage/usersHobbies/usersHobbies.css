@@ -2,6 +2,8 @@
     padding: 10px 10px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     width: fit-content;
+    text-align: center;
+    margin-left: 1rem;
 }
 
 .hobby-option-button-unselected {

@@ -92,10 +92,10 @@ class Post extends Component {
                     </div>
                     <div className="rightAlign">
                             {liked ?
-                            <button disabled="true">
+                            <button className="smallButton" disabled="true">
                                 Liked
                             </button> :
-                            <button onClick={() => this.props.likePost(id)}>
+                            <button className="smallButton" onClick={() => this.props.likePost(id)}>
                                 Like
                             </button>}
                     </div>

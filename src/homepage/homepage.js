@@ -123,7 +123,9 @@ class Homepage extends Component {
                 <Row>
                     <Col xs={3}>
                         <div className = 'searchHobbyWrapper'>
+                            <div className="searchBar">
                             <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                            </div>
                             {this.state.showPopup ? 
                                 <Popup
                                     text={this.state.searchedHobby}

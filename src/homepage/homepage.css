@@ -43,4 +43,9 @@ body {
 .searchHobbyWrapper {
     padding: 10px 10px;
     width: fit-content;
+    margin-left: 1.5rem;
+}
+
+.searchBar {
+    margin: 1rem 0;
 }
