@@ -44,24 +44,15 @@ class SuggestedHobbies extends Component {
                 var hobbiesInfo = firebase.database().ref("Hobbies");
                 hobbiesInfo.on('value', (snapshot) => {
                     const hobbies = snapshot.val();
-                    console.log("suggested hobbies here");
-                    console.log(hobbies);
                     if (hobbies) {
                         var suggested = [];
-                        console.log("suggested added hobbies here");
-                        console.log(self.state.addedHobbies);
                         for(let i = 0; i < self.state.addedHobbies.length; i++) {
                             var key = self.state.addedHobbies[i];
                             var hobbyInfo = hobbies[key];
-                            console.log("suggested hobbies info here");
-                            console.log(hobbyInfo);
                                 if(hobbyInfo != undefined) {
                                     var related = hobbyInfo["Related Hobbies"];
                                     for(var j in related) {
-                                        console.log('related[j');
-                                        console.log(related[j]);
                                         if(self.state.addedHobbies.indexOf(related[j]) == -1) {
-                                            console.log("got herer");
                                             suggested.push(related[j])
                                         }
                                     }
@@ -71,8 +62,6 @@ class SuggestedHobbies extends Component {
                         self.setState({
                             hobbyOptions: suggested    
                         });
-                        console.log("suggested hobbies options here");
-                        console.log(self.state.hobbyOptions);
                     }
                     
                 });
@@ -91,10 +80,8 @@ class SuggestedHobbies extends Component {
 
     addHobby(hobby) {
        var newHobbyList = this.state.addedHobbies;
-       console.log("originl list" + newHobbyList);
 
        newHobbyList.push(hobby);
-       console.log("added" + newHobbyList);
         
        this.setState({
             addedHobbies: newHobbyList
@@ -105,11 +92,9 @@ class SuggestedHobbies extends Component {
         var newKey = newHobbyList.length;
         // add this hobby to the database
 
-        console.log(this.state.uid);
 
         let database = firebase.database();
         var hobbyIdRef = database.ref('Hobbies/'+hobby+"/HobbyId");
-        console.log(hobbyIdRef);
         hobbyIdRef.once('value', (snapshot) => {
             let hobbyId = snapshot.val();
             database.ref('Users/'+this.state.uid+"/Hobbies/").update({

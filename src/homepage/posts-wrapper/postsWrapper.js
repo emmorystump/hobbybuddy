@@ -15,7 +15,8 @@ class PostsWrapper extends Component {
             showPostDetail: -1,
             selectedHobby: this.props.selectedHobby,
             username: '',
-            likedPosts: []
+            likedPosts: [],
+            availLocs: [],
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
@@ -30,15 +31,19 @@ class PostsWrapper extends Component {
                 var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
                 hobbyRef.once('value', (snapshot) =>{
                     const postObjects = snapshot.val();
-                    console.log(postObjects);
                     const arr = Object.values(postObjects);
-                    console.log(arr);
                     self.setState({
                         postsList: arr,
                         userid: userid,
                         username: user.displayName
                     });
-                });   
+                });  
+                var locRef = firebase.database().ref("Locations");
+                locRef.once('value', (snapshot) =>{
+                    self.setState({
+                        availLocs: snapshot.val(),
+                    });
+                });  
             } else {
             }
         });
@@ -49,9 +54,7 @@ class PostsWrapper extends Component {
         var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
         hobbyRef.once('value', (snapshot) =>{
             const postObjects = snapshot.val();
-            console.log(postObjects);
             const arr = Object.values(postObjects);
-            console.log(arr);
             self.setState({
                 postsList: arr,
                 selectedHobby: self.props.selectedHobby

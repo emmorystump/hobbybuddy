@@ -8,7 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Navigationbar = ({ name }) => {
-    console.log(name)
     if(name == undefined) {
         name="No name"
     }
@@ -27,7 +26,6 @@ const Navigationbar = ({ name }) => {
 
 const signOut = () => {
     firebase.auth().signOut().then(function() {
-        console.log('signOut Success');
         useHistory().push('/login');
     }).catch(function(error) {
     // An error happened.
