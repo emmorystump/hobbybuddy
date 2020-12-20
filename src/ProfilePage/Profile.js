@@ -12,6 +12,7 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loading: false,
             location: "",
             username: "",
             hobbies: [],
@@ -35,9 +36,9 @@ class Profile extends Component {
                     })
                 });
             } else {
+                self.props.history.push('/login');
             }
         });
-        
     }
 
 
