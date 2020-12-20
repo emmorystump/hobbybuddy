@@ -28,7 +28,6 @@ class ProfileDetails extends React.Component {
                 <div>
                     <h3 className="box-title">Your hobbies</h3>
                     <div className="hobbies-container">
-    
                         {hobbyKeys.map((hobbyKeys, index) =>
                             <div className="hobby-box" key={index}>
                                 <div className="deleteBtn" onClick={() => this.deleteHobby(hobbyKeys)}>
@@ -47,7 +46,7 @@ class ProfileDetails extends React.Component {
                 </div>
             )
         }
-
+        
         return (
             <div>
                 <Navbar name={this.props.username} />

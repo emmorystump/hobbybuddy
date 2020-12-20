@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import firebase from "firebase/app";
 import 'firebase/auth';
-import {Row, Col, Button, Nav, Navbar, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Row, Col, Button, Nav, Navbar, Container} from 'react-bootstrap'
 import 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -14,11 +14,30 @@ const Navigationbar = ({ name }) => {
     return (
         <div>
             <Navbar bg="light" expand="lg" fixed="sticky">
-                <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/profile">{name}</Nav.Link>
-                    <Navbar.Brand as={Link} to="/">Hobby Buddy</Navbar.Brand>
-                    <div className="navbar-right"><Button variant="light" onClick={() => signOut()}> Sign Out </Button></div>
-                </Nav>
+                <Container>
+                    <Row>
+                        <Nav>
+                            <Col sm={4}>
+                                <Link to="/profile">
+                                    <div className="profile-navbar">
+                                        <div>
+                                            <div className="user-image box"></div>
+                                        </div>
+                                        <div>
+                                            <Nav.Link as={Link} to="/profile">{name}</Nav.Link>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </Col>
+                            <Col sm={4}>
+                                <Navbar.Brand as={Link} to="/">Hobby Buddy</Navbar.Brand>
+                            </Col>
+                            <Col sm={4}>
+                                <div className="navbar-right"><Button variant="light" onClick={() => signOut()}> Sign Out </Button></div>
+                            </Col>
+                        </Nav>
+                    </Row>
+                </Container>
             </Navbar>
         </div>
     );

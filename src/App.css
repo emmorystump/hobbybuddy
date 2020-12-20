@@ -3,10 +3,31 @@ body {
 }
 /* Navbar CSS */
 nav {
+    text-align: center;
     display: flex;
     height: 60px;    
     background: white;
     border-bottom: 1px solid #f6f6f6;
+}
+
+nav .profile-navbar {
+    display: flex;
+}
+
+nav .profile-navbar .box{
+    border-radius: 50%;
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    background-size: 25px;
+}
+
+nav .row {
+    width: 100%;
+}
+
+nav .navbar-nav{
+    width: 100%;
 }
 
 nav a {
