@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar';
 import 'firebase/auth';
 import 'firebase/database';
 import './profile.css';
+import { withRouter } from 'react-router-dom';
+import {Button} from 'react-bootstrap'
 
 class ProfileDetails extends React.Component {
     constructor(props) {
@@ -58,9 +60,10 @@ class ProfileDetails extends React.Component {
                 </div>
                 <Chat />
                 {listOfHobbies}
+                <Button variant="info" className="profileBackToHome" onClick={() => this.props.history.push('/')}> Back To Home </Button>
             </div>   
         )
     }
 }
 
-export default ProfileDetails;
+export default withRouter(ProfileDetails);

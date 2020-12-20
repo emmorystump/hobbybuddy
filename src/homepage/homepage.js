@@ -27,7 +27,7 @@ class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedHobby: 'Biking',
+            selectedHobby: '',
             email: '',
             uid: '',
             username: '',
@@ -98,6 +98,7 @@ class Homepage extends Component {
                       const hobbies = snapshot.val();
                       if (hobbies) {
                           self.setState({
+                              selectedHobby: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])[0],
                               userHobbies: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])
                           });
                       }
