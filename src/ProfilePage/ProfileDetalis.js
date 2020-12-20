@@ -6,7 +6,6 @@ import 'firebase/auth';
 import 'firebase/database';
 import './profile.css';
 
-
 class ProfileDetails extends React.Component {
     constructor(props) {
         super(props);

@@ -15,6 +15,7 @@ class ChatWrapper extends Component {
             chatlogs: [],
             curTarget: '',
             curTargetIndex: -1,
+            predefinedTarget: this.props.predefinedTarget,
         };
         this.StateChange = this.StateChange.bind(this);
         this.SearchUser = this.SearchUser.bind(this);
@@ -34,6 +35,9 @@ class ChatWrapper extends Component {
                         self.setState({
                             chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
                         });
+                        // if (self.state.predefinedTarget !== '') {
+                        //     self.SearchUser(self.state.predefinedTarget);
+                        // }
                     }
                 });
             } else {

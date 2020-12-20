@@ -34,10 +34,12 @@ class Homepage extends Component {
             showPopup: false,
             searchedHobby: 'Biking',
             userHobbies: [],
+            predefinedChatTarget: '',
         };
         this.switchHobby = this.switchHobby.bind(this);
         this.togglePopup = this.togglePopup.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
+        this.messageAuthor = this.messageAuthor.bind(this);
     }
     
     togglePopup(text, adding) {
@@ -72,6 +74,12 @@ class Homepage extends Component {
             return;
         }
         this.togglePopup(clickedHobby);
+    }
+
+    messageAuthor(author) {
+        this.setState({
+            predefinedChatTarget: author
+        });
     }
 
     componentDidMount() {
@@ -128,14 +136,14 @@ class Homepage extends Component {
                         <UserHobbies switchHobby={this.switchHobby}/>
                     </Col>
                     <Col xs={6}>
-                        <PostsWrapper selectedHobby={this.state.selectedHobby}/>
+                        <PostsWrapper selectedHobby={this.state.selectedHobby} messageAuthor={this.messageAuthor}/>
                     </Col>
                     <Col xs={3}>
                         <SuggestedHobbies switchHobby={this.switchHobby}/>
                     </Col>
 
                 </Row>
-                <ChatWrapper userid={this.state.uid}/>
+                <ChatWrapper userid={this.state.uid} predefinedTarget={this.state.predefinedChatTarget} />
             </div>   
         );
     }

@@ -18,6 +18,7 @@ class PostsWrapper extends Component {
             likedPosts: [],
             availLocs: [],
             selectedLoc: 'All',
+            messageAuthor: this.props.messageAuthor,
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
@@ -112,7 +113,10 @@ class PostsWrapper extends Component {
                                     Like
                                 </button>}
                                 <button onClick={() => this.stateChange(index)}>
-                                    View Post/Comment
+                                    Comment
+                                </button>
+                                <button onClick={() => this.state.messageAuthor(author)}>
+                                    Message Author
                                 </button>
                             </div>
                         </div>

@@ -12,7 +12,6 @@ const Navigationbar = ({ name }) => {
     if(name == undefined) {
         name="No name"
     }
-    const history = useHistory();
     return (
         <div>
             <Navbar bg="light" expand="lg" fixed="sticky">
@@ -20,16 +19,14 @@ const Navigationbar = ({ name }) => {
                     <Row>
                         <Nav>
                             <Col sm={4}>
-                                <Link to="/profile">
-                                    <div className="profile-navbar">
-                                        <div>
-                                            <div className="user-image box"></div>
-                                        </div>
-                                        <div>
-                                            <Nav.Link as={Link} className="profileLink" to="/profile">{name}</Nav.Link>
-                                        </div>
+                                <div className="profile-navbar">
+                                    <div>
+                                        <div className="navbar-user-image box"></div>
                                     </div>
-                                </Link>
+                                    <div>
+                                        <Nav.Link as={Link} className="profileLink" to="/profile">{name}</Nav.Link>
+                                    </div>
+                                </div>
                             </Col>
                             <Col sm={4}>
                                 <Navbar.Brand as={Link} to="/">Hobby Buddy</Navbar.Brand>

@@ -65,10 +65,10 @@
 }
 
 .user-image{
-    background-image: url("https://lh3.googleusercontent.com/proxy/xotcLzOfZT3uB6j4dNHGceGma3uqvZ6Xv54uIdz9z6WcB_c1lWOyoQvTwcceAWxYfoxi8eiP7RgOLEgPy91ZzZIG9qeR16LAVZuOU1iENxrJJVZJe9FLk8f4tskpHcOs7NrGfOOXHDTFzMOnXbG_frEKoI43sxZ-rqpn");
+    background-image: url("../profile_image.jpg");
     overflow: hidden;
     background-repeat: no-repeat;
-    background-size: 80px;
+    background-size: 100px;
     background-position: 50% 50%;
 }
 
