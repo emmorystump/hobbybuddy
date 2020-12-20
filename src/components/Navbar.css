@@ -1,0 +1,11 @@
+.profileLink {
+    color: black !important;
+}
+
+.navbar-user-image{
+    background-image: url("../profile_image.jpg");
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 27px !important;
+    background-position: 50% 50%;
+}
