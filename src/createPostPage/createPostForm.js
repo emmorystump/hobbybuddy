@@ -44,6 +44,7 @@ class CreatePostForm extends Component {
                 var locRef = firebase.database().ref("Locations");
                 locRef.on('value', (snapshot) =>{
                     self.setState({
+                        selectedLoc: snapshot.val()[0],
                         availLocs: snapshot.val()
                     });
                 });
