@@ -122,7 +122,7 @@ class SuggestedHobbies extends Component {
         
         return (
             <div className = "suggested-hobby-sidebar">
-                <h4>Suggested Hobbies</h4>
+                <h5>Suggested Hobbies</h5>
                 {hobbyButtonElements}
             </div>
         );

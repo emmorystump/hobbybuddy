@@ -113,7 +113,7 @@ class Homepage extends Component {
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
                 <Row>
-                    <Col xs={2}>
+                    <Col xs={3}>
                         <div className = 'searchHobbyWrapper'>
                             <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
                             {this.state.showPopup ? 
@@ -127,10 +127,10 @@ class Homepage extends Component {
                         </div>
                         <UserHobbies switchHobby={this.switchHobby}/>
                     </Col>
-                    <Col xs={8}>
+                    <Col xs={6}>
                         <PostsWrapper selectedHobby={this.state.selectedHobby}/>
                     </Col>
-                    <Col>
+                    <Col xs={3}>
                         <SuggestedHobbies switchHobby={this.switchHobby}/>
                     </Col>
 
