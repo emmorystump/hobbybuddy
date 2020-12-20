@@ -11,6 +11,10 @@
 .centerText {
     text-align: center;
 }
+.hobbyTitle {
+    font-weight: 1000;
+    font-size: larger;
+}
 .rightAlign {
     text-align: right;
 }
