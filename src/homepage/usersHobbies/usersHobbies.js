@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 class UserHobbies extends Component {
     constructor(props) {
         super(props);
-        console.log("in here!");
         this.state = {
             selectedHobby: '',
             hobbyOptions: [],
@@ -27,28 +26,24 @@ class UserHobbies extends Component {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 let userid = user.uid;
-                console.log("here:"+userid);
+                
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
                     if (hobbies) {
-                        if (hobbies.length) {
-                            self.setState({
-                                selectedHobby: hobbies[0],
-                                hobbyOptions: hobbies,
-                            });
-                        } 
+                        self.setState({
+                            selectedHobby: hobbies[Object.keys(hobbies)[0]],
+                            hobbyOptions: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])
+                        });
                     }
-
                 });
             } 
         });
     }
 
     render() {
-        const {selectedHobby, hobbyOptions} = this.state;
-        const hobbyButtonElements = hobbyOptions.map(hobby => 
-            <Row><Button variant="light" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
+        const hobbyButtonElements = this.state.hobbyOptions.map(hobby => 
+            <Row key={hobby}><Button variant="light" onClick={() => this.state.switchHobby(hobby)} className = "hobby-option-button" to="/" id={hobby}>{hobby}</Button></Row>);
         
         return (
             <div className = "hobby-sidebar">

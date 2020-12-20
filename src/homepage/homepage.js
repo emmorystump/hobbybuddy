@@ -47,7 +47,6 @@ class Homepage extends Component {
           showPopup: !this.state.showPopup
         });
         this.setState({searchedHobby:text});
-        console.log("text")
         if (adding) {
             let database = firebase.database();
             var hobbyIdRef = database.ref('Hobbies/'+text+"/HobbyId");
@@ -78,7 +77,6 @@ class Homepage extends Component {
         var self = this;
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log("succeed");
                 console.log(user.email);
                 console.log(user.displayName);
                 self.setState({

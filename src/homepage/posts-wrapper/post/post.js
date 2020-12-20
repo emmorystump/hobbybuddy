@@ -33,6 +33,10 @@ class Post extends Component {
         //add comment to post 
         //clear state "commentToAdd"
         //reload render
+        if (this.state.commentToAdd === '') {
+            alert("Please add some content to the comment");
+            return;
+        }
         var username = this.state.username;
         var postId = id;
         var post = this.props.postInfo;
@@ -49,6 +53,9 @@ class Post extends Component {
                 } else {
                     console.log('comment add - success')
                     this.props.updatePosts();
+                    this.setState({
+                        commentToAdd: '',
+                    })
                 }
         });
     }
@@ -99,7 +106,7 @@ class Post extends Component {
                 <div className="addCommentBox">
                     <div>
                         Add Comment
-                        <textarea className = "input" type = "text" onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
+                        <textarea className = "input" type = "text" value={this.state.commentToAdd} onChange = {(event) => this.setState({commentToAdd: event.target.value })}></textarea>
                     </div>
                     <div className="rightAlign">
                         <button className="commentButton" onClick={() => this.addComment(id)}>Submit</button>

@@ -26,18 +26,15 @@ class SuggestedHobbies extends Component {
 
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                console.log(user.uid);
                 let userid = user.uid;
                 var userHobbies = firebase.database().ref('Users/'+userid+"/Hobbies");
                 userHobbies.on('value', (snapshot) =>{
                     const hobbies = snapshot.val();
                     if (hobbies) {
-                        if (hobbies.length) {
-                            self.setState({
-                                addedHobbies: hobbies,
-                                uid: userid
-                            });
-                        } 
+                        self.setState({
+                            addedHobbies: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId]),
+                            uid: userid
+                        });
                     }
 
                 });
@@ -46,19 +43,19 @@ class SuggestedHobbies extends Component {
             if (user) {
                 var hobbiesInfo = firebase.database().ref("Hobbies");
                 hobbiesInfo.on('value', (snapshot) => {
-                    console.log("hobby Info")
                     const hobbies = snapshot.val();
                     if (hobbies) {
                         var suggested = [];
                         for(let i = 0; i < self.state.addedHobbies.length; i++) {
                             var key = self.state.addedHobbies[i];
                             var hobbyInfo = hobbies[key];
-                            var related = hobbyInfo["Related Hobbies"];
-                            console.log(related)
-                            for(var j in related) {
-                                if(self.state.addedHobbies.indexOf(related[j]) == -1) {
-                                    suggested.push(related[j])
-                                }
+                                if(hobbyInfo != undefined) {
+                                    var related = hobbyInfo["Related Hobbies"];
+                                    for(var j in related) {
+                                        if(self.state.addedHobbies.indexOf(related[j]) == -1) {
+                                            suggested.push(related[j])
+                                        }
+                                    }
                             }
                         }
     
@@ -66,10 +63,6 @@ class SuggestedHobbies extends Component {
                             hobbyOptions: suggested    
                         });
                     }
-
-                    self.setState({
-                        hobbyOptions: suggested,
-                    });
                     
                 });
             }
@@ -77,22 +70,18 @@ class SuggestedHobbies extends Component {
     }
 
     removeSuggestedHobby(e) {
-        console.log(e)
         var array = this.state.hobbyOptions
         var index = array.indexOf(e)
         if (index !== -1) {
           array.splice(index, 1);
           this.setState({hobbyOptions: array});
         }
-        console.log(this.state.hobbyOptions);
       }
 
     addHobby(hobby) {
        var newHobbyList = this.state.addedHobbies;
-       console.log("originl list" + newHobbyList);
 
        newHobbyList.push(hobby);
-       console.log("added" + newHobbyList);
         
        this.setState({
             addedHobbies: newHobbyList
@@ -103,11 +92,9 @@ class SuggestedHobbies extends Component {
         var newKey = newHobbyList.length;
         // add this hobby to the database
 
-        console.log(this.state.uid);
 
         let database = firebase.database();
         var hobbyIdRef = database.ref('Hobbies/'+hobby+"/HobbyId");
-        console.log(hobbyIdRef);
         hobbyIdRef.once('value', (snapshot) => {
             let hobbyId = snapshot.val();
             database.ref('Users/'+this.state.uid+"/Hobbies/").update({

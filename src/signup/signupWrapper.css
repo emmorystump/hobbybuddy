@@ -11,3 +11,23 @@
     color: lightseagreen;
     font-size: larger;
 }
+
+.signUpBackToLogin {
+    display: block;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    background-color: lightskyblue;
+    border: none;
+    margin-left: 20px;
+    border-radius: 5px;
+    font: medium;
+    text-decoration: none;
+    width: fit-content;
+}
+
+.signUpBackToLogin:hover {
+    text-decoration: none;
+    color: white;
+}

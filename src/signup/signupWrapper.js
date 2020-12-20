@@ -5,7 +5,7 @@ import firebase from "firebase/app";
 import 'firebase/auth';
 import 'firebase/database';
 import './signupWrapper.css';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class SignupWrapper extends Component {
     constructor(props) {
@@ -39,6 +39,17 @@ class SignupWrapper extends Component {
     }
 
     stateChange(state) {
+        if (state === 2) {
+            if (this.state.email === '' ||
+            this.state.password === '' ||
+            this.state.username === '') {
+                alert("Please enter all the information.");
+                return;
+            } else if (this.state.password.length < 6) {
+                alert("Password needs to be at least 6 digits!")
+                return;
+            }
+        }
         this.setState({curSignupState: state});
     }
 
@@ -134,6 +145,7 @@ class SignupWrapper extends Component {
         return (
             <div className="signupWrapper">
                 <div className="signupLabel">Welcome!</div>
+                <Link className="signUpBackToLogin" to="/login">Back</Link>
                 {signupState}
             </div>   
         );
