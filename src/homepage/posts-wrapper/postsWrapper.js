@@ -17,6 +17,7 @@ class PostsWrapper extends Component {
             username: '',
             likedPosts: [],
             availLocs: [],
+            selectedLoc: 'All',
         };
         this.stateChange = this.stateChange.bind(this);
         this.likePost = this.likePost.bind(this);
@@ -41,9 +42,9 @@ class PostsWrapper extends Component {
                 var locRef = firebase.database().ref("Locations");
                 locRef.once('value', (snapshot) =>{
                     self.setState({
-                        availLocs: snapshot.val(),
+                        availLocs: ['All', ...snapshot.val()]
                     });
-                });  
+                });
             } else {
             }
         });
@@ -84,7 +85,13 @@ class PostsWrapper extends Component {
         }
         let posts;
         if (this.state.showPostDetail === -1) {
-            posts = this.state.postsList.map((post, index) => {
+            posts = this.state.postsList
+                .filter(post =>{ 
+                    if (this.state.selectedLoc === 'All')
+                        return true;
+                    else
+                        return post.Location === this.state.selectedLoc;
+                }).map((post, index) => {
                 var description = post.Description;
                 var id = post.PostId;
                 var liked = this.state.likedPosts.includes(id);
@@ -116,6 +123,8 @@ class PostsWrapper extends Component {
         else {
             posts = <Post updatePosts={this.updatePosts} username={this.state.username} likePost={this.likePost} likedPosts={this.state.likedPosts} postInfo={this.state.postsList[this.state.showPostDetail]} selectedHobby={this.props.selectedHobby} />
         }
+        const locElements = this.state.availLocs.map(loc => 
+            <option key={loc} value={loc}>{loc}</option>);
         return (
             <div className="postsWrapper">
                 <div id="wrapperHeader">
@@ -130,6 +139,12 @@ class PostsWrapper extends Component {
                             </Link>
                         </div>
                     }
+                    <div>
+                        Choose Location:
+                        <select className = "input" onChange = {(event) => this.setState({selectedLoc: event.target.value })}>
+                            {locElements}
+                        </select>
+                    </div>
                     {this.state.showPostDetail !== -1 &&
                         <div className="leftAlign">    
                             <button className="backButton" onClick={() => this.stateChange(-1)}>Back</button>

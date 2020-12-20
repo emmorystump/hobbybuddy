@@ -14,6 +14,8 @@ class CreatePostForm extends Component {
             selectedHobby: '',
             description: '',
             hobbyOptions: [],
+            availLocs: [],
+            selectedLoc: '',
         }
         this.submitForm = this.submitForm.bind(this);
     }
@@ -39,6 +41,12 @@ class CreatePostForm extends Component {
                     }
 
                 });
+                var locRef = firebase.database().ref("Locations");
+                locRef.once('value', (snapshot) =>{
+                    self.setState({
+                        availLocs: snapshot.val()
+                    });
+                });
             } else {
                 // alert("Sign in first");
             }
@@ -48,7 +56,8 @@ class CreatePostForm extends Component {
 
     submitForm() {
         var self = this;
-        const {title, selectedHobby, description} = this.state;
+        // eslint-disable-next-line no-unused-vars
+        const {title, selectedHobby, description, availLocs, selectedLoc} = this.state;
         if (title.trim() === '' 
             || selectedHobby === ''
             || description.trim() === '') {
@@ -64,7 +73,8 @@ class CreatePostForm extends Component {
                     PostId: newPostCount,
                     Title: title,
                     Hobby: selectedHobby,
-                    Description : description
+                    Description : description,
+                    Location: selectedLoc,
                   }, (error) => {
                       if (error) {
                         alert("Due to server issues, submission failed! Please try again later.");
@@ -88,6 +98,8 @@ class CreatePostForm extends Component {
         const {title, selectedHobby, description, hobbyOptions} = this.state;
         const hobbyOptionElements = hobbyOptions.map(hobby => 
             <option key={hobby} value={hobby}>{hobby}</option>);
+        const locElements = this.state.availLocs.map(loc => 
+            <option key={loc} value={loc}>{loc}</option>);
         return (
             <div className = "content">
                 <div className="newPostLabel">
@@ -102,6 +114,12 @@ class CreatePostForm extends Component {
                         Hobby:
                         <select className = "input" onChange = {(event) => this.setState({selectedHobby: event.target.value })}>
                             {hobbyOptionElements}
+                        </select>
+                    </div>
+                    <div className="inputWrapper">
+                        Location:
+                        <select className = "input" onChange = {(event) => this.setState({selectedLoc: event.target.value })}>
+                            {locElements}
                         </select>
                     </div>
                     <div className="inputWrapper">
