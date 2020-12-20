@@ -49,6 +49,11 @@ class SignupWrapper extends Component {
                 alert("Password needs to be at least 6 digits!")
                 return;
             }
+            const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!regexp.test(this.state.email)) { 
+                alert('invalid email address!');
+                return;
+            }
         }
         this.setState({curSignupState: state});
     }
