@@ -32,7 +32,7 @@ const SignupState2 = ({
     });
     return (
     <div>
-        <button className="backButton" onClick={() => stateChange(1)}>Back</button>
+        <button className="backButton" onClick={() => stateChange(1)}>Back To Previous Step</button>
         <div className="selectHobbySection">
             <div className="selectHobbyLabel">Select your hobbies!</div>
             {availHobbyElements}

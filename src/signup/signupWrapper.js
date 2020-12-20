@@ -145,7 +145,7 @@ class SignupWrapper extends Component {
         return (
             <div className="signupWrapper">
                 <div className="signupLabel">Welcome!</div>
-                <Link className="signUpBackToLogin" to="/login">Back</Link>
+                <Link className="signUpBackToLogin" to="/login">Back To Login</Link>
                 {signupState}
             </div>   
         );

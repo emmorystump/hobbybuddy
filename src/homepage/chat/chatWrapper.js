@@ -35,9 +35,6 @@ class ChatWrapper extends Component {
                         self.setState({
                             chatlogs: Object.keys(chatlogObjects).map(uid => chatlogObjects[uid]),
                         });
-                        // if (self.state.predefinedTarget !== '') {
-                        //     self.SearchUser(self.state.predefinedTarget);
-                        // }
                     }
                 });
             } else {
@@ -121,6 +118,12 @@ class ChatWrapper extends Component {
     }
     
     render() {
+        if (this.state.predefinedTarget !== this.props.predefinedTarget) {
+            this.SearchUser(this.props.predefinedTarget);
+            this.setState({
+                predefinedTarget: this.props.predefinedTarget
+            })
+        }
         let chatState;
         const {curChatState, chatlogs, curTarget, curTargetIndex} = this.state;
         if (curChatState === 1) {
@@ -136,7 +139,6 @@ class ChatWrapper extends Component {
         } else {
             let messages = chatlogs[curTargetIndex].Messages;
             if (messages === undefined) messages = [];
-            console.log(messages);
             chatState = <ChatState3
                             stateChange={this.StateChangeWithDataRefresh}
                             target={curTarget}
