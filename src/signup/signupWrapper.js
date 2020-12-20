@@ -39,6 +39,14 @@ class SignupWrapper extends Component {
     }
 
     stateChange(state) {
+        if (state === 2) {
+            if (this.state.email === '' ||
+            this.state.password === '' ||
+            this.state.username === '') {
+                alert("Please enter all the information.");
+                return;
+            }
+        }
         this.setState({curSignupState: state});
     }
 
