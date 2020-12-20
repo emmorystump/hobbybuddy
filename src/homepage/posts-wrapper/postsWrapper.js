@@ -30,16 +30,18 @@ class PostsWrapper extends Component {
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
                 let userid = user.uid;
-                var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
-                hobbyRef.once('value', (snapshot) =>{
-                    const postObjects = snapshot.val();
-                    const arr = Object.values(postObjects);
-                    self.setState({
-                        postsList: arr,
-                        userid: userid,
-                        username: user.displayName
-                    });
-                });  
+                if (self.props.selectedHobby && self.props.selectedHobby !== '') {
+                    var hobbyRef = firebase.database().ref("Hobbies/"+self.props.selectedHobby+"/Posts");
+                    hobbyRef.once('value', (snapshot) =>{
+                        const postObjects = snapshot.val();
+                        const arr = Object.values(postObjects);
+                        self.setState({
+                            postsList: arr,
+                            userid: userid,
+                            username: user.displayName
+                        });
+                    });  
+                }
                 var locRef = firebase.database().ref("Locations");
                 locRef.on('value', (snapshot) =>{
                     self.setState({

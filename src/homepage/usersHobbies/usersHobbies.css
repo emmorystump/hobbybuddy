@@ -1,4 +1,5 @@
 .hobby-sidebar {
+    margin: 10px auto;
     padding: 10px 10px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
     width: fit-content;

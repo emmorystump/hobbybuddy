@@ -68,7 +68,13 @@
     background-image: url("../profile_image.jpg");
     overflow: hidden;
     background-repeat: no-repeat;
-    background-size: 100px;
+    background-size: 78px;
     background-position: 50% 50%;
+}
+
+.profileBackToHome {
+    margin-top: 60px;
+    margin-left: 20px;
+
 }
 

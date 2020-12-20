@@ -27,7 +27,7 @@ class Homepage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedHobby: 'Biking',
+            selectedHobby: '',
             email: '',
             uid: '',
             username: '',
@@ -98,6 +98,7 @@ class Homepage extends Component {
                       const hobbies = snapshot.val();
                       if (hobbies) {
                           self.setState({
+                              selectedHobby: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])[0],
                               userHobbies: Object.keys(hobbies).map(hobbyId => hobbies[hobbyId])
                           });
                       }
@@ -120,32 +121,36 @@ class Homepage extends Component {
                 <Navigationbar name={this.state.username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
-                <Row>
-                    <Col xs={3}>
-                        <div className = 'searchHobbyWrapper'>
-                            <div className="searchBar">
-                            <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                <div className="homepage-container">
+                    <Row>
+                        <Col xs={3}>
+                            <div className="left-col">
+                                <div className = 'searchHobbyWrapper'>
+                                    <div className="searchHobbyWrapper">
+                                    <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                                    </div>
+                                    {this.state.showPopup ? 
+                                        <Popup
+                                            text={this.state.searchedHobby}
+                                            closePopup={this.togglePopup.bind(this)}
+                                        />
+                                        : null
+                                        }
+                                    <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
+                                </div>
+                                <UserHobbies switchHobby={this.switchHobby}/>
                             </div>
-                            {this.state.showPopup ? 
-                                <Popup
-                                    text={this.state.searchedHobby}
-                                    closePopup={this.togglePopup.bind(this)}
-                                />
-                                : null
-                                }
-                            <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
-                        </div>
-                        <UserHobbies switchHobby={this.switchHobby}/>
-                    </Col>
-                    <Col xs={6}>
-                        <PostsWrapper selectedHobby={this.state.selectedHobby} messageAuthor={this.messageAuthor}/>
-                    </Col>
-                    <Col xs={3}>
-                        <SuggestedHobbies switchHobby={this.switchHobby}/>
-                    </Col>
+                        </Col>
+                        <Col xs={6}>
+                            <PostsWrapper selectedHobby={this.state.selectedHobby} messageAuthor={this.messageAuthor}/>
+                        </Col>
+                        <Col xs={3}>
+                            <SuggestedHobbies switchHobby={this.switchHobby}/>
+                        </Col>
 
-                </Row>
-                <ChatWrapper userid={this.state.uid} predefinedTarget={this.state.predefinedChatTarget} />
+                    </Row>
+                    <ChatWrapper userid={this.state.uid} predefinedTarget={this.state.predefinedChatTarget} />
+                </div>
             </div>   
         );
     }
