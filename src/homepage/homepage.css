@@ -2,6 +2,11 @@ body {
     background-color: white;
 }
 
+.homepage-container{
+    width: 90%;
+    margin: 35px auto;
+}
+
 .creatPostButton {    
     display: block;
     text-decoration: none;
@@ -26,7 +31,7 @@ body {
     height:46px;
     border: none;
     color: white;
-    padding: 6px 6px;
+    margin-top: 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -41,6 +46,13 @@ body {
 }
 
 .searchHobbyWrapper {
+    width: 226px;
+    margin: 10px auto;
     padding: 10px 10px;
-    width: fit-content;
+}
+
+.left-col{
+    border-right: 1px solid #a8a8a8;
+    height: 100%;
+    width: 100%;
 }

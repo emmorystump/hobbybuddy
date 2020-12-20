@@ -3,6 +3,9 @@
 }
 
 .suggested-hobby-sidebar {
+    border-left: 1px solid #a8a8a8;
+    height: 100%;
+    text-align: center;
     padding: 10px 0px; /* Some padding */
     cursor: pointer; /* Pointer/hand icon */
 }

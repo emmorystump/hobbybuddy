@@ -120,30 +120,34 @@ class Homepage extends Component {
                 <Navigationbar name={this.state.username} />
                 {/* <PostsWrapper postState={postState} selectedHobby={this.state.selectedHobby}/>
                 <ChatWrapper /> */}
-                <Row>
-                    <Col xs={3}>
-                        <div className = 'searchHobbyWrapper'>
-                            <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
-                            {this.state.showPopup ? 
-                                <Popup
-                                    text={this.state.searchedHobby}
-                                    closePopup={this.togglePopup.bind(this)}
-                                />
-                                : null
-                                }
-                            <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
-                        </div>
-                        <UserHobbies switchHobby={this.switchHobby}/>
-                    </Col>
-                    <Col xs={6}>
-                        <PostsWrapper selectedHobby={this.state.selectedHobby} messageAuthor={this.messageAuthor}/>
-                    </Col>
-                    <Col xs={3}>
-                        <SuggestedHobbies switchHobby={this.switchHobby}/>
-                    </Col>
+                <div className="homepage-container">
+                    <Row>
+                        <Col xs={3}>
+                            <div className="left-col">
+                                <div className = 'searchHobbyWrapper'>
+                                    <Select options={HobbySearchList} onChange={(values) => this.setValues(values)} placeholder={"Search Hobbies.."}/>
+                                    {this.state.showPopup ? 
+                                        <Popup
+                                            text={this.state.searchedHobby}
+                                            closePopup={this.togglePopup.bind(this)}
+                                        />
+                                        : null
+                                        }
+                                    <a href="/requestHobby"><button class="requestHobbyButton">Request Hobby</button></a>
+                                </div>
+                                <UserHobbies switchHobby={this.switchHobby}/>
+                            </div>
+                        </Col>
+                        <Col xs={6}>
+                            <PostsWrapper selectedHobby={this.state.selectedHobby} messageAuthor={this.messageAuthor}/>
+                        </Col>
+                        <Col xs={3}>
+                            <SuggestedHobbies switchHobby={this.switchHobby}/>
+                        </Col>
 
-                </Row>
-                <ChatWrapper userid={this.state.uid} predefinedTarget={this.state.predefinedChatTarget} />
+                    </Row>
+                    <ChatWrapper userid={this.state.uid} predefinedTarget={this.state.predefinedChatTarget} />
+                </div>
             </div>   
         );
     }
