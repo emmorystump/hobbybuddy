@@ -4,7 +4,7 @@ body {
 
 .homepage-container{
     width: 90%;
-    margin: 35px auto;
+    margin: 30px auto;
 }
 
 .creatPostButton {    
@@ -49,8 +49,6 @@ body {
     width: 226px;
     margin: 10px auto;
     padding: 10px 10px;
-    width: fit-content;
-    margin-left: 1.5rem;
 }
 
 .left-col{
