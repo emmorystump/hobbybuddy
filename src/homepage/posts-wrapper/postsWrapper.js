@@ -40,7 +40,7 @@ class PostsWrapper extends Component {
                     });
                 });  
                 var locRef = firebase.database().ref("Locations");
-                locRef.once('value', (snapshot) =>{
+                locRef.on('value', (snapshot) =>{
                     self.setState({
                         availLocs: ['All', ...snapshot.val()]
                     });
