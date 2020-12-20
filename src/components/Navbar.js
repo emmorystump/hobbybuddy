@@ -5,7 +5,7 @@ import 'firebase/auth';
 import {Row, Col, Button, Nav, Navbar, Container, NavDropdown, Form, FormControl} from 'react-bootstrap'
 import 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './navbar.css';
+import './Navbar.css';
 
 
 const Navigationbar = ({ name }) => {
