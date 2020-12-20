@@ -34,4 +34,17 @@ nav a {
     align-items: center;
 }
 
+/* Loading Indicator */
+.loading-indicator{
+    height: 100vh;
+}
+
+.loader {
+    width: 70px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    margin: -70px 0 0 -70px;
+}
+
 

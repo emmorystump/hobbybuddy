@@ -15,8 +15,8 @@ const Navigationbar = ({ name }) => {
         <div>
             <Navbar bg="light" expand="lg" fixed="sticky">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/profile">{name}</Nav.Link>
-                    <Navbar.Brand href="/">Hobby Buddy</Navbar.Brand>
+                    <Nav.Link as={Link} to="/profile">{name}</Nav.Link>
+                    <Navbar.Brand as={Link} to="/">Hobby Buddy</Navbar.Brand>
                     <div className="navbar-right"><Button variant="light" onClick={() => signOut()}> Sign Out </Button></div>
                 </Nav>
             </Navbar>
