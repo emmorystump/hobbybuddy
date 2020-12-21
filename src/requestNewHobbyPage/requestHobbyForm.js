@@ -20,6 +20,10 @@ class RequestHobbyForm extends Component {
     submitForm() {
         var self = this;
         const {title, selectedHobby, description} = this.state;
+        if (title === '' || description === '') {
+            alert("Please fill in all the information.");
+            return;
+        }
         alert("Request Submitted");
         self.props.history.push('/');
     }
